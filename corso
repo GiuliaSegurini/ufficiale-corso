@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<metà charset="UTF-8">
+<metà name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ufficiale di Macchina STCW III/1 — Prepara l'esame con metodo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #05080f;
+  --bg2: #080d1a;
+  --bg3: #0a1020;
+  --navy: #0d1b3e;
+  --orange: #e8660a;
+  --orange2: #ff7a1a;
+  --orange-glow: rgba(232,102,10,0.15);
+  --orange-dim: rgba(232,102,10,0.07);
+  --steel: #8fa3c0;
+  --steel-light: #b8cde0;
+  --cream: #f0ece3;
+  --white: #f4f4f2;
+  --muted: #4a6080;
+  --border: rgba(143,163,192,0.12);
+  --border-orange: rgba(232,102,10,0.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--white); overflow-x: hidden; }
+a { text-decoration: none; }
+
+/* CANVAS */
+#particles-canvas { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; opacity:0.4; }
+
+/* NAV */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 18px 6vw;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(5,8,15,0.75);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--orange);
+  letter-spacing: 0.05em;
+}
+.nav-logo span { color: var(--steel); }
+.nav-cta {
+  background: var(--orange);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 6px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.nav-cta:hover { opacity:0.88; transform:translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  padding: 140px 6vw 100px;
+  position: relative; z-index:1;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--orange-dim);
+  border: 1px solid var(--border-orange);
+  border-radius: 4px;
+  padding: 7px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.hero-badge::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--orange); animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.02em;
+  font-size: clamp(48px, 7.5vw, 96px);
+  font-weight: 900;
+  line-height: 1.06;
+  color: var(--cream);
+  max-width: 900px;
+  margin-bottom: 28px;
+}
+.hero h1 .acc {
+  background: linear-gradient(135deg, #e8660a 0%, #ff9a3c 50%, #e8660a 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease infinite;
+}
+@keyframes gradientShift {
+  0%{ background-position: 0% center; }
+  50%{ background-position: 100% center; }
+  100%{ background-position: 0% center; }
+}
+.hero h1 .acc2 { color: var(--steel-light); }
+.hero-sub {
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: var(--steel);
+  line-height: 1.75;
+  max-width: 600px;
+  margin-bottom: 44px;
+}
+.hero-stats {
+  display: flex; flex-wrap: wrap; gap: 32px;
+  margin-bottom: 48px;
+}
+.hero-stat { display:flex; flex-direction:column; gap:4px; }
+.hero-stat-num {
+  font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.02em;
+  font-size: 36px; font-weight: 900;
+  color: var(--orange); line-height:1;
+}
+.hero-stat-label { font-size: 13px; color: var(--muted); }
+.hero-buttons { display:flex; gap:14px; flex-wrap:wrap; }
+.btn-primary {
+  display: inline-flex; align-items:center; gap:10px;
+  background: var(--orange); color: #fff;
+  font-size: 17px; font-weight: 500;
+  padding: 17px 36px; border-radius: 6px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover { transform:translateY(-3px); box-shadow: 0 12px 40px rgba(232,102,10,0.3); }
+.btn-ghost {
+  display: inline-flex; align-items:center; gap:10px;
+  background: transparent; color: var(--steel-light);
+  font-size: 17px; font-weight: 400;
+  padding: 17px 32px; border-radius: 6px;
+  border: 1px solid var(--border);
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-ghost:hover { background: rgba(143,163,192,0.06); transform:translateY(-2px); }
+.hero-scroll { position:absolute; bottom:36px; left:6vw; display:flex; align-items:center; gap:10px; color:rgba(143,163,192,0.35); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; }
+.scroll-bar { width:40px; height:1px; background: linear-gradient(to right, rgba(232,102,10,0.6), transparent); }
+
+/* STRIP */
+.strip {
+  position:relative; z-index:1;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  background: rgba(232,102,10,0.04);
+  padding: 22px 6vw;
+  display:flex; flex-wrap:wrap; gap:10px 28px; align-items:center;
+}
+.strip-label { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; flex-shrink:0; }
+.strip-pills { display:flex; flex-wrap:wrap; gap:8px; }
+.strip-pill {
+  background: rgba(143,163,192,0.06); border:1px solid var(--border);
+  color: var(--steel-light); font-size:12px; font-weight:500;
+  padding:5px 14px; border-radius:4px;
+}
+
+/* SECTIONS */
+section { position:relative; z-index:1; padding:110px 6vw; }
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size:11px; font-weight:500; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--orange); margin-bottom:16px; opacity:0.9;
+}
+h2.section-title {
+  font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.02em;
+  font-size: clamp(32px, 4.5vw, 58px);
+  font-weight: 900; line-height: 1.1; color: var(--cream);
+}
+h2.section-title .acc { color: var(--orange); }
+h2.section-title .acc2 { color: var(--steel-light); }
+.glow-line { width:60px; height:2px; background:var(--orange); border-radius:2px; margin-top:24px; box-shadow:0 0 16px rgba(232,102,10,0.5); }
+
+/* PROBLEMA */
+.problema-section { background: var(--bg2); }
+.problema-intro { font-size:18px; color:var(--steel); line-height:1.75; max-width:min(660px,100%); margin-top:22px; margin-bottom:60px; }
+.problema-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
+.problema-card {
+  background: rgba(143,163,192,0.03); border:1px solid var(--border);
+  border-radius:8px; padding:32px;
+  transition: border-color 0.3s, transform 0.3s, background 0.3s;
+}
+.problema-card:hover { border-color:rgba(232,102,10,0.3); background:var(--orange-dim); transform:translateY(-4px); }
+.problema-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:700; color:var(--cream); margin-bottom:10px; }
+.problema-card p { font-size:14px; color:var(--steel); line-height:1.7; }
+.prob-tag {
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase;
+  background:var(--orange-dim); border:1px solid var(--border-orange);
+  color:var(--orange); padding:4px 12px; border-radius:3px; margin-bottom:14px;
+}
+
+/* ESAME */
+.esame-section { background:var(--bg); }
+.esame-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin-top:60px; }
+.esame-card {
+  background:var(--orange-dim); border:1px solid var(--border-orange);
+  border-radius:8px; padding:32px; text-align:center;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.esame-card:hover { transform:translateY(-4px); border-color:rgba(232,102,10,0.5); }
+.esame-num { font-family:'Barlow Condensed',sans-serif; font-size:52px; font-weight:900; color:var(--orange); line-height:1; margin-bottom:10px; text-shadow:0 0 24px rgba(232,102,10,0.3); }
+.esame-label { font-size:13px; color:var(--steel); line-height:1.5; }
+.esame-note { font-size:16px; color:var(--steel); line-height:1.8; max-width:min(680px,100%); margin-top:24px; }
+
+/* ENGLISH */
+.english-section { background:var(--bg3); }
+.english-intro { font-size:17px; color:var(--steel); line-height:1.75; max-width:min(640px,100%); margin-top:20px; margin-bottom:50px; }
+.vocab-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:10px; margin-top:40px; }
+.vocab-card {
+  background:rgba(13,27,62,0.6); border:1px solid rgba(143,163,192,0.15);
+  border-radius:8px; padding:16px 20px;
+  display:flex; align-items:flex-start; gap:12px;
+  transition: border-color 0.3s, transform 0.2s;
+  min-width:0;
+}
+.vocab-card:hover { border-color:rgba(232,102,10,0.3); transform:translateY(-2px); }
+.vocab-en {
+  font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500;
+  color:var(--orange); flex-shrink:0; min-width:160px; padding-top:2px;
+}
+.vocab-it { font-size:13px; color:var(--steel); line-height:1.5; }
+.english-phrase-block {
+  margin-top:40px; background:rgba(13,27,62,0.5); border:1px solid var(--border);
+  border-radius:8px; padding:28px 24px;
+}
+.english-phrase-block h3 { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:700; color:var(--cream); margin-bottom:24px; }
+.phrase-item { padding:12px 0; border-bottom:1px solid var(--border); display:flex; flex-direction:column; gap:4px; }
+.phrase-item:last-child { border-bottom:none; }
+.phrase-en { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--orange2); }
+.phrase-it { font-size:13px; color:var(--steel); }
+
+/* MODULI */
+.moduli-section { background:var(--bg2); }
+.moduli-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; margin-top:56px; }
+.modulo-card {
+  background:rgba(255,255,255,0.02); border:1px solid var(--border);
+  border-radius:8px; padding:36px; position:relative; overflow:hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.modulo-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--orange); opacity:0; transition:opacity 0.3s; }
+.modulo-card:hover { border-color:rgba(232,102,10,0.3); transform:translateY(-4px); }
+.modulo-card:hover::before { opacity:1; }
+.modulo-num { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; color:var(--orange); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:12px; }
+.modulo-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:700; color:var(--cream); margin-bottom:12px; }
+.modulo-card ul { list-style:none; }
+.modulo-card ul li { display:flex; align-items:flex-start; gap:8px; font-size:13px; color:var(--steel); padding:5px 0; line-height:1.5; border-bottom:1px solid rgba(143,163,192,0.07); }
+.modulo-card ul li:last-child { border-bottom:none; }
+.modulo-card ul li::before { content:'_'; color:var(--orange); font-family:'JetBrains Mono',monospace; flex-shrink:0; }
+
+/* DOMANDE TIPICHE */
+.domande-section { background:var(--bg); }
+.domande-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:50px; --dq-cols:1fr 1fr; }
+@media(max-width:min(700px,100%)){ .domande-grid { grid-template-columns:1fr; } }
+.domanda-card {
+  background:rgba(13,27,62,0.5); border:1px solid var(--border);
+  border-radius:8px; padding:22px 26px;
+  transition: border-color 0.3s, transform 0.2s;
+}
+.domanda-card:hover { border-color:rgba(232,102,10,0.3); transform:translateY(-2px); }
+.domanda-cat { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
+.domanda-card p { font-size:14px; color:var(--steel-light); line-height:1.6; }
+
+/* PRICING */
+.pricing-section { background:var(--bg2); }
+.pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px; max-width:min(860px,100%); margin-top:60px; }
+.plan-card { border-radius:10px; padding:44px; position:relative; transition:transform 0.3s; }
+.plan-card:hover { transform:translateY(-5px); }
+.plan-base { background:rgba(255,255,255,0.02); border:1px solid var(--border); }
+.plan-pro {
+  background: var(--orange);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.plan-pro::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #ff9a3c, #e8660a, #ff6b00, #e8660a);
+  background-size: 300% 300%;
+  animation: borderGlow 4s ease infinite;
+  z-index: -1;
+  border-radius: 12px;
+}
+@keyframes borderGlow {
+  0%{ background-position: 0% 50%; }
+  50%{ background-position: 100% 50%; }
+  100%{ background-position: 0% 50%; }
+}
+.plan-badge { position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--bg); color:var(--orange); font-size:11px; font-weight:500; padding:5px 18px; border-radius:30px; border:1px solid var(--border-orange); white-space:nowrap; font-family:'JetBrains Mono',monospace; letter-spacing:0.06em; }
+.plan-label { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:14px; }
+.plan-base .plan-label { color:rgba(143,163,192,0.5); }
+.plan-pro .plan-label { color:rgba(5,8,15,0.6); }
+.plan-name { font-family:'Barlow Condensed',sans-serif; font-size:34px; font-weight:900; margin-bottom:6px; }
+.plan-base .plan-name { color:var(--cream); }
+.plan-pro .plan-name { color:#05080f; }
+.plan-tagline { font-size:13px; margin-bottom:28px; }
+.plan-base .plan-tagline { color:rgba(143,163,192,0.5); }
+.plan-pro .plan-tagline { color:rgba(5,8,15,0.6); }
+.plan-price { display:flex; align-items:baseline; gap:4px; margin-bottom:6px; }
+.price-cur { font-size:20px; font-weight:400; }
+.plan-base .price-cur { color:rgba(240,236,227,0.4); }
+.plan-pro .price-cur { color:rgba(5,8,15,0.5); }
+.price-num { font-family:'Barlow Condensed',sans-serif; font-size:64px; font-weight:900; line-height:1; }
+.plan-base .price-num { color:var(--cream); }
+.plan-pro .price-num { color:#05080f; }
+.price-strike { font-size:17px; text-decoration:line-through; margin-left:6px; }
+.plan-base .price-strike { color:rgba(240,236,227,0.25); }
+.plan-pro .price-strike { color:rgba(5,8,15,0.3); }
+.price-period { font-size:12px; margin-bottom:28px; }
+.plan-base .price-period { color:rgba(143,163,192,0.4); }
+.plan-pro .price-period { color:rgba(5,8,15,0.45); }
+.plan-divider { height:1px; margin:18px 0; }
+.plan-base .plan-divider { background:var(--border); }
+.plan-pro .plan-divider { background:rgba(5,8,15,0.15); }
+.plan-features { list-style:none; }
+.plan-features li { display:flex; align-items:flex-start; gap:10px; font-size:14px; padding:8px 0; line-height:1.5; }
+.plan-base .plan-features li { color:var(--steel); }
+.plan-pro .plan-features li { color:#05080f; }
+.plan-features li .ic { flex-shrink:0; font-family:'JetBrains Mono',monospace; }
+.plan-base .plan-features li .ic { color:var(--orange); }
+.plan-cta { display:block; text-align:center; padding:16px; border-radius:6px; font-size:16px; font-weight:500; margin-top:28px; transition:transform 0.2s, opacity 0.2s, box-shadow 0.2s; }
+.plan-cta:hover { transform:translateY(-2px); opacity:0.88; }
+.plan-base .plan-cta { background:var(--orange-dim); color:var(--orange); border:1px solid var(--border-orange); }
+.plan-pro .plan-cta { background:#05080f; color:var(--orange); box-shadow:0 8px 24px rgba(5,8,15,0.3); }
+
+/* STCW */
+.stcw-section { background:var(--navy); }
+.stcw-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:50px; }
+.stcw-card { background:rgba(232,102,10,0.05); border:1px solid var(--border-orange); border-radius:8px; padding:28px; }
+.stcw-card h3 { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500; color:var(--orange); margin-bottom:8px; letter-spacing:0.06em; }
+.stcw-card p { font-size:13px; color:var(--steel); line-height:1.65; }
+
+/* FINAL CTA */
+.final-cta { position:relative; z-index:1; background:#060b10; padding:130px 6vw; text-align:center; overflow:hidden; }
+.final-cta::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:700px; background:radial-gradient(circle, rgba(232,102,10,0.07) 0%, transparent 70%); pointer-events:none; }
+.final-cta h2 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(38px,5.5vw,70px); font-weight:900; color:var(--cream); line-height:1.1; margin-bottom:22px; position:relative; }
+.final-cta p { font-size:18px; color:var(--steel); line-height:1.7; max-width:min(520px,100%); margin:0 auto 48px; position:relative; }
+.final-cta .big-cta { display:inline-flex; align-items:center; gap:12px; background:var(--orange); color:#fff; font-size:20px; font-weight:500; padding:22px 52px; border-radius:8px; transition:transform 0.2s, box-shadow 0.2s; position:relative; }
+.final-cta .big-cta:hover { transform:translateY(-4px); box-shadow:0 16px 50px rgba(232,102,10,0.3); }
+
+/* FOOTER */
+footer { position:relative; z-index:1; background:var(--bg); padding:28px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; border-top:1px solid var(--border); }
+footer p { font-size:12px; color:rgba(143,163,192,0.25); font-family:'JetBrains Mono',monospace; }
+
+/* REVEAL */
+.reveal { opacity:1; transform:translateY(0); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.js-ready .reveal { opacity:0; transform:translateY(28px); }
+.js-ready .reveal.visible { opacity:1; transform:translateY(0); }
+
+/* COUNTER GLOW */
+.esame-num, .stat-num {
+  text-shadow: 0 0 30px rgba(232,102,10,0.4);
+}
+
+/* HERO ANIM */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.hero-badge { animation:fadeUp 0.7s ease forwards; }
+.hero h1 { animation:fadeUp 0.7s 0.1s ease both; }
+.hero-sub { animation:fadeUp 0.7s 0.2s ease both; }
+.hero-stats { animation:fadeUp 0.7s 0.28s ease both; }
+.hero-buttons { animation:fadeUp 0.7s 0.36s ease both; }
+
+@media(max-width:min(600px,100%)){ section{padding:80px 5vw;} .plan-card{padding:36px 26px;} }
+@media(max-width:min(768px,100%)){ .about-resp { grid-template-columns:1fr !important; gap:40px !important; } }
+
+/* ============ MOBILE RESPONSIVE ============ */
+@media (max-width: 768px) {
+  /* NAV */
+  nav { padding: 14px 5vw; }
+  .nav-logo { font-size: 12px; }
+  .nav-cta { padding: 8px 16px; font-size: 13px; }
+
+  /* HERO */
+  .hero { padding: 100px 5vw 70px; align-items: flex-start; }
+  .hero h1 { font-size: clamp(38px, 10vw, 60px); }
+  .hero-sub { font-size: 15px; }
+  .hero-stats { gap: 20px; }
+  .hero-stat-num { font-size: 28px; }
+  .hero-buttons { flex-direction: column; gap: 12px; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; font-size: 15px; padding: 15px 24px; }
+
+  /* ENGINE CANVAS */
+  #engine-canvas { height: 260px !important; }
+
+  /* MONITOR OVERLAY */
+  [style*="justify-content:flex-end"][style*="padding:0 6vw"] {
+    justify-content: center !important;
+    padding: 0 4vw !important;
+    align-items: flex-end !important;
+    padding-bottom: 16px !important;
+  }
+
+  /* STRIP */
+  .strip { padding: 16px 5vw; gap: 8px 16px; }
+  .strip-pill { font-size: 11px; padding: 4px 10px; }
+
+  /* SECTIONS */
+  section { padding: 70px 5vw !important; }
+
+  /* H2 */
+  h2.section-title { font-size: clamp(28px, 7vw, 44px) !important; }
+
+  /* PAIN POINTS */
+  [style*="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* PHOTO STRIP */
+  [style*="--photo-cols"] {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+  }
+  [style*="--photo-cols"] > div { height: 200px !important; }
+
+  /* ENGLISH VOCAB */
+  [style*="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+  .vocab-card { flex-direction: column; gap: 6px; }
+  .vocab-en { min-width: unset; }
+
+  /* ENGINE DIAGRAM */
+  [style*="--eng-cols"] {
+    grid-template-columns: 1fr !important;
+  }
+  [style*="--eng-cols"] > div:first-child { min-height: 260px !important; }
+
+  /* OVERVIEW */
+  [style*="grid-template-columns:80px 1fr"] {
+    grid-template-columns: 60px 1fr !important;
+  }
+
+  /* STATS */
+  [style*="display:flex; gap:24px; flex-wrap:wrap"] {
+    justify-content: space-around;
+    gap: 16px !important;
+  }
+
+  /* ABOUT ALESSANDRO */
+  .about-resp { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .about-resp > div:first-child { align-items: center !important; }
+
+  /* DOMANDE */
+  [style*="--dq-cols"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* QUIZ */
+  #quiz-wrapper { padding: 0; }
+  #quiz-question-box { padding: 24px 20px; }
+  #quiz-options button { font-size: 13px !important; padding: 12px 14px !important; }
+  #result-score { font-size: 56px !important; }
+
+  /* PRICING */
+  .pricing-grid { grid-template-columns: 1fr !important; }
+  .plan-card { padding: 36px 28px !important; }
+  [style*="max-width: min(520px"] { max-width: 100% !important; }
+
+  /* STCW */
+  .stcw-grid { grid-template-columns: 1fr !important; }
+
+  /* MODULES */
+  .moduli-grid { grid-template-columns: 1fr !important; }
+
+  /* PROBLEMA */
+  .problema-grid { grid-template-columns: 1fr !important; }
+
+
+  /* VOCAB CARDS */
+  .vocab-grid { grid-template-columns: 1fr !important; }
+  .vocab-card { flex-direction: row; align-items: flex-start; }
+  .vocab-en { min-width: 140px !important; font-size: 12px !important; }
+  .vocab-it { font-size: 12px !important; }
+  .english-phrase-block { padding: 20px 16px !important; }
+  .phrase-en { font-size: 12px !important; word-break: break-word; }
+  .phrase-it { font-size: 12px !important; }
+  .english-phrase-block h3 { font-size: 17px !important; }
+
+
+  /* FINAL CTA */
+  .final-cta { padding: 80px 5vw !important; }
+  .final-cta h2 { font-size: clamp(32px, 8vw, 52px) !important; }
+  .final-cta .big-cta { font-size: 16px !important; padding: 16px 28px !important; width: 100%; justify-content: center; }
+
+  /* FOOTER */
+  footer { flex-direction: column; text-align: center; gap: 6px; padding: 20px 5vw; }
+
+  /* HERO VISUAL monitor */
+  [style*="display:flex; align-items:center; justify-content:flex-end"] {
+    justify-content: center !important;
+    align-items: flex-end !important;
+    padding: 0 4vw 12px !important;
+  }
+  [style*="max-width:280px"] { max-width: 100% !important; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: clamp(32px, 9vw, 48px); }
+  .hero-badge { font-size: 10px; padding: 6px 12px; }
+  [style*="grid-template-columns:80px 1fr"] {
+    grid-template-columns: 50px 1fr !important;
+  }
+  .hero-stats { flex-wrap: wrap; gap: 16px; }
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">ENGINE<span>.STCW</span></span>
+  <a href="https://neuroplasticitytraining.it/order?link=SE4ju&pricing_plan=PjWlK4LEGv" target="_blank" class="nav-cta">Inizia ora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">STCW III/1 &amp; III/2 — Preparazione esame</div>
+  <h1>Sei già<br>nella <span class="acc">sala macchine.</span><br>Ora <span class="acc2">prendi il grado.</span></h1>
+  <p class="hero-sub">Hai già i mesi di navigazione. Hai già la pratica. Manca solo un esame. Il problema è che l'esame non valuta quello che fai a bordo: valuta come lo spieghi. Questo corso colma quel gap.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">5</span><span class="hero-stat-label">moduli tematici</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">3</span><span class="hero-stat-label">prove d'esame coperte</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">200+</span><span class="hero-stat-label">domande tipiche simulate</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">EN</span><span class="hero-stat-label">inglese tecnico incluso</span></div>
+  </div>
+  <div class="hero-buttons">
+    <a href="#pricing" class="btn-primary">Accedi al corso &#8599;</a>
+    <a href="#moduli" class="btn-ghost">Vedi il programma</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-bar"></div><span>scroll</span></div>
+</section>
+
+<!-- HERO VISUAL — 3D ENGINE ANIMATION -->
+<div style="position:relative; z-index:1; background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; height:420px;">
+  <canvas id="engine-canvas" style="width:100%; height:100%; display:block; pointer-events:none;"></canvas>
+  <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:flex-end; padding:0 6vw; pointer-events:none;">
+    <div style="background:rgba(5,8,15,0.85); border:1px solid var(--border-orange); border-radius:8px; padding:20px 28px; backdrop-filter:blur(8px); max-width:min(280px,100%);">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">// engine room monitor</p>
+      <div id="live-rpm" style="font-family:'JetBrains Mono',monospace; font-size:32px; font-weight:500; color:var(--cream); margin-bottom:4px;">082 <span style="font-size:14px; color:var(--muted);">RPM</span></div>
+      <div style="height:1px; background:var(--border); margin:10px 0;"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div><p style="font-size:10px; color:var(--muted); font-family:'JetBrains Mono',monospace;">LO PRESS</p><p id="live-lop" style="font-size:16px; color:#7fc9b0; font-family:'JetBrains Mono',monospace;">4.2 bar</p></div>
+        <div><p style="font-size:10px; color:var(--muted); font-family:'JetBrains Mono',monospace;">CW TEMP</p><p id="live-cwt" style="font-size:16px; color:#7fc9b0; font-family:'JetBrains Mono',monospace;">82°C</p></div>
+        <div><p style="font-size:10px; color:var(--muted); font-family:'JetBrains Mono',monospace;">EXH TEMP</p><p id="live-ext" style="font-size:16px; color:var(--orange); font-family:'JetBrains Mono',monospace;">340°C</p></div>
+        <div><p style="font-size:10px; color:var(--muted); font-family:'JetBrains Mono',monospace;">TC RPM</p><p id="live-tcrpm" style="font-size:16px; color:#7fc9b0; font-family:'JetBrains Mono',monospace;">12400</p></div>
+      </div>
+      <div style="margin-top:10px; padding:6px 10px; background:rgba(127,201,176,0.08); border-radius:4px; border:1px solid rgba(127,201,176,0.2);">
+        <p style="font-size:11px; color:#7fc9b0; font-family:'JetBrains Mono',monospace;">STATUS: NORMAL SEA PASSAGE</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STRIP -->
+<div class="strip">
+  <span class="strip-label">copre</span>
+  <div class="strip-pills">
+    <span class="strip-pill">Motore diesel 2T è 4T</span>
+    <span class="strip-pill">Turbocompressori</span>
+    <span class="strip-pill">Impianto elettrico</span>
+    <span class="strip-pill">Pompe è sistemi ausiliari</span>
+    <span class="strip-pill">Manutenzione programmata</span>
+    <span class="strip-pill">Inglese tecnico IMO</span>
+    <span class="strip-pill">STCW III/1 è III/2</span>
+    <span class="strip-pill">Prova orale simulata</span>
+  </div>
+</div>
+
+<!-- TEST AUTOVALUTAZIONE -->
+<section style="background:var(--bg2); position:relative; z-index:1; padding:110px 6vw;">
+  <div class="reveal">
+    <p class="section-eyebrow">// prima di tutto — quanto sei pronto?</p>
+    <h2 class="section-title">Scopri in 3 minuti<br>le tue <span class="acc">lacune reali.</span><br><span style="font-size:0.55em; color:var(--steel); font-weight:400; font-family:'Barlow',sans-serif; display:block; margin-top:8px;">8 domande reali dell'esame STCW. Rispondi senza aiuti — poi ti diciamo cosa studiare.</span></h2>
+    <div class="glow-line"></div>
+    <p style="font-size:17px; color:var(--steel); line-height:1.75; max-width:min(580px,100%); margin-top:22px;">5 domande reali dell'esame. Rispondi senza aiuti. Scopri subito le tue lacune.</p>
+  </div>
+  <div id="quiz-wrapper" style="max-width:min(720px,100%);margin-top:48px;">
+    <div id="QC">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+        <span id="QS" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--orange);min-width:48px;">01/08</span>
+        <div style="flex:1;height:3px;background:rgba(143,163,192,0.1);border-radius:2px;">
+          <div id="QB" style="height:3px;width:12.5%;background:var(--orange);border-radius:2px;transition:width .4s;"></div>
+        </div>
+      </div>
+      <div style="background:rgba(13,27,62,0.6);border:1px solid rgba(143,163,192,0.15);border-radius:8px;padding:28px 24px;">
+        <p id="QT" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;"></p>
+        <p id="QQ" style="font-size:17px;color:#f0ece3;line-height:1.6;margin-bottom:20px;font-weight:400;"></p>
+        <div id="QO" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <div id="QF" style="display:none;margin-top:16px;padding:14px 18px;border-radius:6px;font-size:14px;line-height:1.65;"></div>
+        <div id="QN" style="display:none;margin-top:16px;">
+          <button style="background:var(--orange);color:#fff;border:none;padding:12px 24px;border-radius:6px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Barlow',sans-serif;">Prossima &#8594;</button>
+        </div>
+      </div>
+    </div>
+    <div id="QR" style="display:none;background:rgba(13,27,62,0.6);border:1px solid rgba(232,102,10,0.3);border-radius:8px;padding:36px 24px;text-align:center;">
+      <div id="QR-email" style="margin-bottom:28px;">
+        <p style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;">// dove mandiamo il tuo risultato?</p>
+        <p style="font-size:15px;color:var(--steel-light);line-height:1.65;margin-bottom:20px;">Inserisci la tua email per ricevere il risultato dettagliato con le aree da studiare.</p>
+
+        <!-- MailerLite form styled for dark theme -->
+        <style>
+          #mlb2-41983325.ml-form-embedContainer { background: transparent !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper { background: transparent !important; border: none !important; width: 100% !important; max-width: 100% !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 100% !important; width: 100% !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody { padding: 0 !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent { display: none !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions { display: none !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input {
+            background-color: rgba(143,163,192,0.06) !important;
+            color: #f0ece3 !important;
+            border-color: rgba(143,163,192,0.25) !important;
+            border-radius: 6px !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 15px !important;
+            padding: 13px 16px !important;
+          }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::placeholder { color: rgba(143,163,192,0.5) !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:focus { border-color: rgba(232,102,10,0.6) !important; outline: none !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit { margin: 0 !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.primary {
+            background-color: var(--orange) !important;
+            border-radius: 6px !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            padding: 13px !important;
+            letter-spacing: 0 !important;
+          }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.primary:hover { background-color: rgba(232,102,10,0.85) !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody { padding: 20px !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 { color: #7fc9b0 !important; font-family: 'Playfair Display', serif !important; font-size: 22px !important; }
+          #mlb2-41983325.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p { color: var(--steel) !important; font-family: 'Space Grotesk', sans-serif !important; }
+          /* Hide phone field - keep only email and name */
+          #mlb2-41983325 .ml-field-phone { display: none !important; }
+          /* After success, show quiz result */
+        </style>
+
+        <div id="mlb2-41983325" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-41983325">
+          <div class="ml-form-align-center">
+            <div class="ml-form-embedWrapper embedForm">
+              <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+                <div class="ml-form-embedContent" style="display:none;"></div>
+                <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/317825/forms/188932782032946551/subscribe" data-code="" method="post" target="_blank">
+                  <div class="ml-form-formContent">
+                    <div class="ml-form-fieldRow" style="display:none;">
+                      <div class="ml-field-group ml-field-phone ml-validate-required">
+                        <input aria-label="phone" type="text" class="form-control" name="fields[phone]" placeholder="Phone" autocomplete="">
+                      </div>
+                    </div>
+                    <div class="ml-form-fieldRow">
+                      <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                        <input aria-label="email" aria-required="true" type="email" class="form-control" name="fields[email]" placeholder="la-tua@email.com" autocomplete="email">
+                      </div>
+                    </div>
+                    <div class="ml-form-fieldRow ml-last-item">
+                      <div class="ml-field-group ml-field-name">
+                        <input aria-label="name" type="text" class="form-control" name="fields[name]" placeholder="Nome (opzionale)" autocomplete="given-name">
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="ml-submit" value="1">
+                  <div class="ml-form-embedSubmit">
+                    <button type="submit" class="primary">Vedi il mio risultato &#8594;</button>
+                    <button disabled="disabled" style="display:none;" type="button" class="loading">
+                      <div class="ml-form-embedSubmitLoad"></div>
+                      <span class="sr-only">Loading...</span>
+                    </button>
+                  </div>
+                  <input type="hidden" name="anticsrf" value="true">
+                </form>
+              </div>
+              <div class="ml-form-successBody row-success" style="display:none;">
+                <div class="ml-form-successContent">
+                  <h4 style="color:#7fc9b0;font-family:'Barlow Condensed',sans-serif;">Iscritto!</h4>
+                  <p style="color:#6a8a80;">Controlla la tua email. Ora vedi il tuo risultato:</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;">Niente spam. Solo il tuo risultato e risorse per prepararti.</p>
+
+        <script>
+        function ml_webform_success_41983325() {
+          var $ = ml_jQuery || jQuery;
+          $('.ml-subscribe-form-41983325 .row-success').show();
+          $('.ml-subscribe-form-41983325 .row-form').hide();
+          // Show quiz result after ML success
+          setTimeout(function(){
+            var eg = document.getElementById('QR-email');
+            var rc = document.getElementById('QR-content');
+            if(eg) eg.style.display = 'none';
+            if(rc) rc.style.display = 'block';
+          }, 1500);
+        }
+        </script>
+        <script src="https://groot.mailerlite.com/js/w/webforms.min.js?vb397d78ebaa8a0f631d35384c46d781b" type="text/javascript"></script>
+      </div></div><!-- /QR-content -->
+    </div>
+  </div></section>
+<!-- PAIN POINTS -->
+<section style="background:var(--bg); position:relative; z-index:1; padding:100px 6vw;">
+  <div class="reveal">
+    <p class="section-eyebrow">// ti riconosci?</p>
+    <h2 class="section-title">Queste frasi<br>le hai <span class="acc">pensate anche tu.</span></h2>
+    <div class="glow-line"></div>
+  </div>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:56px;">
+    <div class="reveal" style="background:rgba(232,102,10,0.05); border:1px solid rgba(232,102,10,0.15); border-radius:8px; padding:28px 30px;">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:28px; color:var(--orange); margin-bottom:12px;">"</p>
+      <p style="font-size:16px; color:var(--steel-light); line-height:1.7; ">"So come funziona il motore, ma quando me lo chiedono all'esame non so da dove iniziare a spiegarlo."</p>
+    </div>
+    <div class="reveal" style="background:rgba(232,102,10,0.05); border:1px solid rgba(232,102,10,0.15); border-radius:8px; padding:28px 30px;">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:28px; color:var(--orange); margin-bottom:12px;">"</p>
+      <p style="font-size:16px; color:var(--steel-light); line-height:1.7; ">"L'inglese tecnico mi spaventa. Leggo i manuali a bordo ma tradurre senza vocabolario in sede d'esame è un'altra storia."</p>
+    </div>
+    <div class="reveal" style="background:rgba(232,102,10,0.05); border:1px solid rgba(232,102,10,0.15); border-radius:8px; padding:28px 30px;">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:28px; color:var(--orange); margin-bottom:12px;">"</p>
+      <p style="font-size:16px; color:var(--steel-light); line-height:1.7; ">"Ho studiato ma non so se sto studiando le cose giuste. Il programma è enorme è non so quanto peso dare a ogni argomento."</p>
+    </div>
+    <div class="reveal" style="background:rgba(232,102,10,0.05); border:1px solid rgba(232,102,10,0.15); border-radius:8px; padding:28px 30px;">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:28px; color:var(--orange); margin-bottom:12px;">"</p>
+      <p style="font-size:16px; color:var(--steel-light); line-height:1.7; ">"Sono già imbarcato, ho poco tempo. Non posso permettermi di rimandare l'esame è perdere altri mesi di navigazione al grado inferiore."</p>
+    </div>
+    <div class="reveal" style="background:rgba(232,102,10,0.05); border:1px solid rgba(232,102,10,0.15); border-radius:8px; padding:28px 30px;">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:28px; color:var(--orange); margin-bottom:12px;">"</p>
+      <p style="font-size:16px; color:var(--steel-light); line-height:1.7; ">"L'impianto elettrico è il mio punto debole. A bordo lo gestisco, ma spiegare quadri, parallelo generatori è protezioni in modo tecnico mi mette in difficolta."</p>
+    </div>
+    <div class="reveal" style="background:rgba(232,102,10,0.05); border:1px solid rgba(232,102,10,0.15); border-radius:8px; padding:28px 30px;">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:28px; color:var(--orange); margin-bottom:12px;">"</p>
+      <p style="font-size:16px; color:var(--steel-light); line-height:1.7; ">"Ho già rimandato una volta. Non voglio che succeda di nuovo. Ho bisogno di arrivare preparato davvero, non di avere solo fortuna."</p>
+    </div>
+  </div>
+  <div class="reveal" style="margin-top:44px; background:var(--navy); border:1px solid rgba(232,102,10,0.2); border-radius:8px; padding:28px 36px; max-width:min(700px,100%);">
+    <p style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--orange); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px;">// il problema reale</p>
+    <p style="font-size:17px; color:var(--steel-light); line-height:1.75;">La commissione non valuta quanto tempo hai passato in sala macchine. Valuta se sai <strong style="color:var(--cream);">strutturare una risposta tecnica precisa</strong> sotto pressione, in italiano è in inglese. Questo si impara. Con il metodo giusto.</p>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="problema-section">
+  <div class="reveal">
+    <p class="section-eyebrow">// il problema</p>
+    <h2 class="section-title">Perché tanti allievi<br>rimandano o <span class="acc">falliscono</span> l'esame.</h2>
+    <div class="glow-line"></div>
+    <p class="problema-intro">Non è mancanza di esperienza a bordo. È mancanza di metodo per tradurre quello che sai in risposte che soddisfano la commissione.</p>
+  </div>
+  <div class="problema-grid">
+    <div class="problema-card reveal">
+      <span class="prob-tag">Teoria</span>
+      <h3>Sai come funziona, ma non sai spiegarlo</h3>
+      <p>In sala macchine operi per istinto è esperienza. All'esame devi usare terminologià tecnica precisa è dimostrare competenza secondo le tabelle STCW. Non è la stessa cosa.</p>
+    </div>
+    <div class="problema-card reveal">
+      <span class="prob-tag">Inglese tecnico</span>
+      <h3>I manuali sono in inglese, l'esame anche</h3>
+      <p>La prova scritta richiede traduzione senza vocabolario. La prova orale richiede conversazione tecnica fluente. Senza preparazione specifica, anche chi parla inglese va in difficoltà sul lessico specifico.</p>
+    </div>
+    <div class="problema-card reveal">
+      <span class="prob-tag">Pratica</span>
+      <h3>La prova pratica sorprende chi non si prepara</h3>
+      <p>La commissione simula guasti, chiede diagnosi è procedure di emergenza. Non basta sapere cosa fare: devi saper rispondere sotto pressione con ordine è precisione.</p>
+    </div>
+    <div class="problema-card reveal">
+      <span class="prob-tag">Elettrotecnica</span>
+      <h3>L'impianto elettrico è l'area più debole</h3>
+      <p>La maggior parte degli allievi arriva forte sui motori ma impreparata su quadri elettrici, generatori, protezioni è distribuzione. È una delle aree più testate.</p>
+    </div>
+    <div class="problema-card reveal">
+      <span class="prob-tag">Organizzazione</span>
+      <h3>Non sai cosa studia realmente la commissione</h3>
+      <p>Il programma ufficiale DM 17/12/2007 è vasto. Senza sapere quali argomenti sono prioritari si rischia di sprecare settimane sui dettagli sbagliati.</p>
+    </div>
+    <div class="problema-card reveal">
+      <span class="prob-tag">Aggiornamento</span>
+      <h3>Il codice STCW si aggiorna: Manila 2010 è oltre</h3>
+      <p>Le emendamenti Manila 2010 è i decreti italiani più recenti hanno cambiato requisiti è contenuti. Studiare su materiale vecchio è un rischio concreto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ESAME -->
+<section class="esame-section">
+  <div class="reveal">
+    <p class="section-eyebrow">// struttura esame ufficiale, D.D. 22 novembre 2016 Art. 10</p>
+    <h2 class="section-title">Come funziona<br>l'esame di <span class="acc">abilitazione</span> STCW.</h2>
+    <div class="glow-line"></div>
+    <p class="esame-note">L'esame per l'abilitazione di Ufficiale di Macchina (STCW Sez. A-III/1) si articola in tre prove distinte. Voto minimo 6/10 per ciascuna prova secondo la scala tassonomica allegata al decreto.</p>
+  </div>
+  <div class="esame-grid">
+    <div class="esame-card reveal">
+      <p class="esame-num">01</p>
+      <p class="esame-label"><strong style="color:var(--cream)">Inglese tecnico, scritta + orale</strong><br>60 minuti totali. Prova scritta: 20 frasi da tradurre, 10 dall'inglese all'italiano e 10 dall'italiano all'inglese, senza vocabolario. Prova orale: uso di pubblicazioni tecniche in inglese e comunicazione con equipaggio internazionale secondo IMO SMCP.</p>
+    </div>
+    <div class="esame-card reveal">
+      <p class="esame-num">02</p>
+      <p class="esame-label"><strong style="color:var(--cream)">Prova pratica</strong><br>da 40 a 60 minuti. Dimostrazione su apparecchiature reali o simulatore: avviamento, esercizio e arresto del motore principale, controllo parametri operativi, riconoscimento guasti, procedure di manutenzione. La commissione si avvale di simulatori ove disponibili.</p>
+    </div>
+    <div class="esame-card reveal">
+      <p class="esame-num">03</p>
+      <p class="esame-label"><strong style="color:var(--cream)">Prova orale</strong><br>da 30 a 40 minuti. Verte sulle 4 funzioni STCW A-III/1: apparato motore principale e ausiliari, impianto elettrico, manutenzione e riparazione, controllo operazioni e prevenzione inquinamento (MARPOL).</p>
+    </div>
+    <div class="esame-card reveal">
+      <p class="esame-num">4</p>
+      <p class="esame-label"><strong style="color:var(--cream)">Funzioni verificate all'orale</strong><br>
+      <strong style="color:var(--orange)">F1</strong> Apparato motore: diesel 2T/4T, TC, combustibile, olio, raffreddamento, aria avviamento<br>
+      <strong style="color:var(--orange)">F2</strong> Impianto elettrico: generatori, parallelo, quadro principale, protezioni<br>
+      <strong style="color:var(--orange)">F3</strong> Manutenzione: PMS, materiali, log book, ISM Code<br>
+      <strong style="color:var(--orange)">F4</strong> Operazioni: MARPOL, sentine, sicurezza, orari guardia STCW</p>
+    </div>
+    <div class="esame-card reveal">
+      <p class="esame-num">6/10</p>
+      <p class="esame-label"><strong style="color:var(--cream)">Voto minimo per prova</strong><br>Valutazione con scala tassonomica allegati A, B, C del decreto. Se si fallisce una prova, la si può ripetere entro 12 mesi. Se non si ripete o si fallisce di nuovo, si ricomincia da capo con tutte le prove.</p>
+    </div>
+    <div class="esame-card reveal">
+      <p class="esame-num">12m</p>
+      <p class="esame-label"><strong style="color:var(--cream)">Requisito di navigazione</strong><br>12 mesi nel libretto di addestramento oppure 36 mesi di navigazione in servizio macchine su navi STCW con apparato motore pari o superiore a 750 KW (Art. 10, comma 1, D.D. 22 novembre 2016).</p>
+    </div>
+  </div>
+</section></section>
+
+<!-- PHOTO STRIP -->
+<div style="position:relative; z-index:1; overflow:hidden; background:var(--bg);">
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); height:280px; --photo-cols:repeat(3,1fr);">
+    <div style="overflow:hidden; position:relative;">
+      <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNjAwIDM4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0id2lkdGg6MTAwJTtoZWlnaHQ6MTAwJTsiPgogIDxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iMzgwIiBmaWxsPSIjMDUwODBmIi8+CiAgPCEtLSBmbG9vciBncmlkIC0tPgogIDxkZWZzPjxwYXR0ZXJuIGlkPSJnciIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNNDAgMEwwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDE0MywxNjMsMTkyLDAuMDgpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPgogIDxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iMzgwIiBmaWxsPSJ1cmwoI2dyKSIvPgogIDwhLS0gbWFpbiBlbmdpbmUgYmxvY2sgLS0+CiAgPHJlY3QgeD0iMTYwIiB5PSI4MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIyMDAiIHJ4PSI4IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC4wNykiIHN0cm9rZT0icmdiYSgyMzIsMTAyLDEwLDAuMzUpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8IS0tIGN5bGluZGVycyB0b3AgLS0+CiAgPHJlY3QgeD0iMTgwIiB5PSI2MCIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjkwIiByeD0iNCIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuMTIpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjQpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxyZWN0IHg9IjIzOCIgeT0iNjAiIHdpZHRoPSI0NCIgaGVpZ2h0PSI5MCIgcng9IjQiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjEyKSIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC40KSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSIyOTYiIHk9IjYwIiB3aWR0aD0iNDQiIGhlaWdodD0iOTAiIHJ4PSI0IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC4xMikiIHN0cm9rZT0icmdiYSgyMzIsMTAyLDEwLDAuNCkiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHJlY3QgeD0iMzU0IiB5PSI2MCIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjkwIiByeD0iNCIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuMTIpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjQpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gcGlzdG9ucyAtLT4KICA8cmVjdCB4PSIxODgiIHk9IjEwNSIgd2lkdGg9IjI4IiBoZWlnaHQ9IjE4IiByeD0iMyIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuNykiIHN0cm9rZT0icmdiYSgyMzIsMTAyLDEwLDAuOSkiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9IjI0NiIgeT0iODUiIHdpZHRoPSIyOCIgaGVpZ2h0PSIxOCIgcng9IjMiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjcpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjkpIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8cmVjdCB4PSIzMDQiIHk9IjEwMCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjE4IiByeD0iMyIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuNykiIHN0cm9rZT0icmdiYSgyMzIsMTAyLDEwLDAuOSkiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9IjM2MiIgeT0iODgiIHdpZHRoPSIyOCIgaGVpZ2h0PSIxOCIgcng9IjMiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjcpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjkpIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8IS0tIGNyYW5rc2hhZnQgLS0+CiAgPGVsbGlwc2UgY3g9IjMwMCIgY3k9IjI3MCIgcng9IjEzMCIgcnk9IjIwIiBmaWxsPSJyZ2JhKDE0MywxNjMsMTkyLDAuMDYpIiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC4zKSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iMzAwIiB5PSIyNzQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMTQzLDE2MywxOTIsMC41KSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMCI+Q1JBTktTSEFGVDwvdGV4dD4KICA8IS0tIGNvbm5lY3Rpbmcgcm9kcyAtLT4KICA8bGluZSB4MT0iMjAyIiB5MT0iMTIzIiB4Mj0iMjEwIiB5Mj0iMjU1IiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC4zKSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjI2MCIgeTE9IjEwMyIgeDI9IjI2OCIgeTI9IjI1NSIgc3Ryb2tlPSJyZ2JhKDE0MywxNjMsMTkyLDAuMykiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSIzMTgiIHkxPSIxMTgiIHgyPSIzMTAiIHkyPSIyNTUiIHN0cm9rZT0icmdiYSgxNDMsMTYzLDE5MiwwLjMpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iMzc2IiB5MT0iMTA2IiB4Mj0iMzU1IiB5Mj0iMjU1IiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC4zKSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSB0dXJib2NoYXJnZXIgLS0+CiAgPGNpcmNsZSBjeD0iNTEwIiBjeT0iMTQwIiByPSI1MCIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuMDYpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjMpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSI1MTAiIGN5PSIxNDAiIHI9IjI4IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC4xKSIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC41KSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8dGV4dCB4PSI1MTAiIHk9IjEzNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuNykiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iOSI+VFVSQk88L3RleHQ+CiAgPHRleHQgeD0iNTEwIiB5PSIxNDgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjcpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjkiPkNIQVJHRVI8L3RleHQ+CiAgPCEtLSBleGhhdXN0IHBpcGUgLS0+CiAgPHBhdGggZD0iTTQ0MCAxMjUgUTQ3NSAxMDAgNDYyIDE0MCIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC40KSIgc3Ryb2tlLXdpZHRoPSI2IiBmaWxsPSJub25lIiBzdHJva2UtZGFzaGFycmF5PSI4LDQiLz4KICA8IS0tIHBpcGVzIGxlZnQgLS0+CiAgPHJlY3QgeD0iODAiIHk9IjEzMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjI1IiByeD0iNCIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjA2KSIgc3Ryb2tlPSJyZ2JhKDEyNywyMDEsMTc2LDAuMjUpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjEyMCIgeT0iMTQ2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDEyNywyMDEsMTc2LDAuNikiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iOSI+TE8gUFVNUDwvdGV4dD4KICA8cmVjdCB4PSI4MCIgeT0iMTcwIiB3aWR0aD0iODAiIGhlaWdodD0iMjUiIHJ4PSI0IiBmaWxsPSJyZ2JhKDE0MywxNjMsMTkyLDAuMDYpIiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC4yKSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8dGV4dCB4PSIxMjAiIHk9IjE4NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgxNDMsMTYzLDE5MiwwLjUpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjkiPkZPIFBVTVA8L3RleHQ+CiAgPGxpbmUgeDE9IjE2MCIgeTE9IjE0MiIgeDI9IjE4MCIgeTI9IjE2NSIgc3Ryb2tlPSJyZ2JhKDEyNywyMDEsMTc2LDAuMikiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtZGFzaGFycmF5PSI0LDIiLz4KICA8bGluZSB4MT0iMTYwIiB5MT0iMTgyIiB4Mj0iMTgwIiB5Mj0iMTk1IiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC4yKSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1kYXNoYXJyYXk9IjQsMiIvPgogIDwhLS0gbGFiZWwgLS0+CiAgPHRleHQgeD0iMjAiIHk9IjI0IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC40KSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMCI+Ly8gRU5HSU5FIFJPT00g4oCUIE1BSU4gTUFDSElORVJZIFNQQUNFPC90ZXh0PgogIDwhLS0gZ2xvdyBlZmZlY3RzIC0tPgogIDxjaXJjbGUgY3g9IjIwMiIgY3k9IjgwIiByPSIxMiIgZmlsbD0icmdiYSgyNTUsMTQwLDAsMC4xNSkiLz4KICA8Y2lyY2xlIGN4PSIzMTgiIGN5PSI4MCIgcj0iOCIgZmlsbD0icmdiYSgyNTUsMTQwLDAsMC4xKSIvPgo8L3N2Zz4="
+           alt="Sala macchine nave mercantile"
+           style="width:100%; height:100%; object-fit:cover; filter:brightness(0.55) saturate(0.8); transition:filter 0.4s;"
+           onmouseover="this.style.filter='brightness(0.75) saturate(1)'"
+           onmouseout="this.style.filter='brightness(0.55) saturate(0.8)'">
+      <div style="position:absolute; bottom:0; left:0; right:0; padding:16px 20px; background:linear-gradient(to top, rgba(5,8,15,0.9), transparent);">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:0.08em; text-transform:uppercase;">Sala Macchine</p>
+        <p style="font-size:12px; color:var(--steel); margin-top:3px;">Engine Room, nave mercantile</p>
+      </div>
+    </div>
+    <div style="overflow:hidden; position:relative;">
+      <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNjAwIDM4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0id2lkdGg6MTAwJTtoZWlnaHQ6MTAwJTsiPgogIDxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iMzgwIiBmaWxsPSIjMDgwZDFhIi8+CiAgPGRlZnM+PHBhdHRlcm4gaWQ9ImcyIiB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0zMCAwTDAgMCAwIDMwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC4wNikiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzODAiIGZpbGw9InVybCgjZzIpIi8+CiAgPCEtLSBDeWxpbmRlciBib2R5IC0tPgogIDxyZWN0IHg9IjIyMCIgeT0iNDAiIHdpZHRoPSIxNjAiIGhlaWdodD0iMjgwIiByeD0iOCIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuMDUpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjMpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8IS0tIFBpc3RvbiAtLT4KICA8cmVjdCB4PSIyMzUiIHk9IjE2MCIgd2lkdGg9IjEzMCIgaGVpZ2h0PSI2MCIgcng9IjYiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjI1KSIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC43KSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iMzAwIiB5PSIxOTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjkpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjExIj5QSVNUT048L3RleHQ+CiAgPCEtLSBQaXN0b24gcmluZ3MgLS0+CiAgPGxpbmUgeDE9IjIzNSIgeTE9IjE3MCIgeDI9IjM2NSIgeTI9IjE3MCIgc3Ryb2tlPSJyZ2JhKDE0MywxNjMsMTkyLDAuNSkiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSIyMzUiIHkxPSIxODAiIHgyPSIzNjUiIHkyPSIxODAiIHN0cm9rZT0icmdiYSgxNDMsMTYzLDE5MiwwLjUpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iMjM1IiB5MT0iMjA4IiB4Mj0iMzY1IiB5Mj0iMjA4IiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC41KSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSBDb25uZWN0aW5nIHJvZCAtLT4KICA8bGluZSB4MT0iMzAwIiB5MT0iMjIwIiB4Mj0iMzAwIiB5Mj0iMzEwIiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC41KSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPCEtLSBDcmFua3BpbiAtLT4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSIzMTUiIHI9IjE0IiBmaWxsPSJyZ2JhKDE0MywxNjMsMTkyLDAuMikiIHN0cm9rZT0icmdiYSgxNDMsMTYzLDE5MiwwLjUpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8IS0tIENvbWJ1c3Rpb24gY2hhbWJlciAtLT4KICA8cmVjdCB4PSIyMzUiIHk9IjUwIiB3aWR0aD0iMTMwIiBoZWlnaHQ9IjYwIiByeD0iNCIgZmlsbD0icmdiYSgyNTUsODAsMCwwLjA4KSIgc3Ryb2tlPSJyZ2JhKDI1NSw4MCwwLDAuMykiIHN0cm9rZS13aWR0aD0iMSIvPgogIDx0ZXh0IHg9IjMwMCIgeT0iODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDEyMCwwLDAuNykiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iOSI+Q09NQlVTVElPTjwvdGV4dD4KICA8IS0tIEV4aGF1c3QgcG9ydCAtLT4KICA8cmVjdCB4PSIzNjUiIHk9IjIwNSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiByeD0iNCIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuMDgpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjMpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjM5NSIgeT0iMjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC42KSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSI4Ij5FWEhBVVNUPC90ZXh0PgogIDwhLS0gU2NhdmVuZ2UgcG9ydCAtLT4KICA8cmVjdCB4PSIxNzUiIHk9IjIxNSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjI1IiByeD0iNCIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjA4KSIgc3Ryb2tlPSJyZ2JhKDEyNywyMDEsMTc2LDAuMykiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iMTk3IiB5PSIyMzEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMTI3LDIwMSwxNzYsMC42KSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSI3Ij5TQ0FWRU5HRTwvdGV4dD4KICA8IS0tIEluamVjdG9yIC0tPgogIDxyZWN0IHg9IjI4MiIgeT0iMzUiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyMiIgcng9IjMiIGZpbGw9InJnYmEoMTQzLDE2MywxOTIsMC4xMikiIHN0cm9rZT0icmdiYSgxNDMsMTYzLDE5MiwwLjQpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjMwMCIgeT0iNTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMTQzLDE2MywxOTIsMC43KSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSI4Ij5JTkpFQ1RPUjwvdGV4dD4KICA8IS0tIExhYmVscyAtLT4KICA8dGV4dCB4PSIyMCIgeT0iMjQiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjQpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIj4vLyAyLVNUUk9LRSBESUVTRUwgRU5HSU5FIOKAlCBDWUNMRSBESUFHUkFNPC90ZXh0PgogIDwhLS0gUGhhc2UgbGFiZWxzIC0tPgogIDx0ZXh0IHg9IjUwMCIgeT0iODAiIGZpbGw9InJnYmEoMjU1LDEyMCwwLDAuNikiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iOSI+4pGgIENPTVBSRVNTSU9OPC90ZXh0PgogIDx0ZXh0IHg9IjUwMCIgeT0iMTAwIiBmaWxsPSJyZ2JhKDI1NSwxMjAsMCwwLjYpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjkiPuKRoSBDT01CVVNUSU9OPC90ZXh0PgogIDx0ZXh0IHg9IjUwMCIgeT0iMTIwIiBmaWxsPSJyZ2JhKDEyNywyMDEsMTc2LDAuNikiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iOSI+4pGiIEVYUEFOU0lPTjwvdGV4dD4KICA8dGV4dCB4PSI1MDAiIHk9IjE0MCIgZmlsbD0icmdiYSgxNDMsMTYzLDE5MiwwLjYpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjkiPuKRoyBTQ0FWRU5HRTwvdGV4dD4KICA8IS0tIEdsb3cgLS0+CiAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iODAiIHI9IjMwIiBmaWxsPSJyZ2JhKDI1NSwxMDAsMCwwLjEyKSIvPgo8L3N2Zz4="
+           alt="Schema motore 2 tempi"
+           style="width:100%; height:100%; object-fit:cover; filter:brightness(0.5) saturate(0.7); transition:filter 0.4s;"
+           onmouseover="this.style.filter='brightness(0.7) saturate(1)'"
+           onmouseout="this.style.filter='brightness(0.5) saturate(0.7)'">
+      <div style="position:absolute; bottom:0; left:0; right:0; padding:16px 20px; background:linear-gradient(to top, rgba(5,8,15,0.9), transparent);">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:0.08em; text-transform:uppercase;">Motore 2T</p>
+        <p style="font-size:12px; color:var(--steel); margin-top:3px;">Ciclo termodinamico animato</p>
+      </div>
+    </div>
+    <div style="overflow:hidden; position:relative;">
+      <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNjAwIDM4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHlsZT0id2lkdGg6MTAwJTtoZWlnaHQ6MTAwJTsiPgogIDxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iMzgwIiBmaWxsPSIjMDYwOTBmIi8+CiAgPGRlZnM+PHBhdHRlcm4gaWQ9ImczIiB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0zMCAwTDAgMCAwIDMwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC4wNikiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzODAiIGZpbGw9InVybCgjZzMpIi8+CiAgPCEtLSBUdXJiaW5lIHNpZGUgKGxlZnQpIC0tPgogIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjE5MCIgcj0iMTEwIiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC4wNSkiIHN0cm9rZT0icmdiYSgyMzIsMTAyLDEwLDAuMjUpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxOTAiIHI9Ijc1IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC4wOCkiIHN0cm9rZT0icmdiYSgyMzIsMTAyLDEwLDAuMzUpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gVHVyYmluZSBibGFkZXMgLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjAwLDE5MCkiPgogICAgPHJlY3QgeD0iLTgiIHk9Ii03MCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjQwIiByeD0iNCIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuNSkiIHN0cm9rZT0icmdiYSgyMzIsMTAyLDEwLDAuOCkiIHN0cm9rZS13aWR0aD0iMSIgdHJhbnNmb3JtPSJyb3RhdGUoMCkiLz4KICAgIDxyZWN0IHg9Ii04IiB5PSItNzAiIHdpZHRoPSIxNiIgaGVpZ2h0PSI0MCIgcng9IjQiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjUpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjgpIiBzdHJva2Utd2lkdGg9IjEiIHRyYW5zZm9ybT0icm90YXRlKDQ1KSIvPgogICAgPHJlY3QgeD0iLTgiIHk9Ii03MCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjQwIiByeD0iNCIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuNSkiIHN0cm9rZT0icmdiYSgyMzIsMTAyLDEwLDAuOCkiIHN0cm9rZS13aWR0aD0iMSIgdHJhbnNmb3JtPSJyb3RhdGUoOTApIi8+CiAgICA8cmVjdCB4PSItOCIgeT0iLTcwIiB3aWR0aD0iMTYiIGhlaWdodD0iNDAiIHJ4PSI0IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC41KSIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgxMzUpIi8+CiAgICA8cmVjdCB4PSItOCIgeT0iLTcwIiB3aWR0aD0iMTYiIGhlaWdodD0iNDAiIHJ4PSI0IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC41KSIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgxODApIi8+CiAgICA8cmVjdCB4PSItOCIgeT0iLTcwIiB3aWR0aD0iMTYiIGhlaWdodD0iNDAiIHJ4PSI0IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC41KSIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgyMjUpIi8+CiAgICA8cmVjdCB4PSItOCIgeT0iLTcwIiB3aWR0aD0iMTYiIGhlaWdodD0iNDAiIHJ4PSI0IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC41KSIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgyNzApIi8+CiAgICA8cmVjdCB4PSItOCIgeT0iLTcwIiB3aWR0aD0iMTYiIGhlaWdodD0iNDAiIHJ4PSI0IiBmaWxsPSJyZ2JhKDIzMiwxMDIsMTAsMC41KSIgc3Ryb2tlPSJyZ2JhKDIzMiwxMDIsMTAsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgzMTUpIi8+CiAgICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMTgiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjMpIiBzdHJva2U9InJnYmEoMjMyLDEwMiwxMCwwLjcpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8L2c+CiAgPCEtLSBDb21wcmVzc29yIHNpZGUgKHJpZ2h0KSAtLT4KICA8Y2lyY2xlIGN4PSI0MDAiIGN5PSIxOTAiIHI9IjExMCIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjA0KSIgc3Ryb2tlPSJyZ2JhKDEyNywyMDEsMTc2LDAuMikiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxjaXJjbGUgY3g9IjQwMCIgY3k9IjE5MCIgcj0iNzUiIGZpbGw9InJnYmEoMTI3LDIwMSwxNzYsMC4wNykiIHN0cm9rZT0icmdiYSgxMjcsMjAxLDE3NiwwLjMpIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gQ29tcHJlc3NvciBibGFkZXMgLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDAwLDE5MCkiPgogICAgPHJlY3QgeD0iLTciIHk9Ii02OCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjM4IiByeD0iMyIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjUpIiBzdHJva2U9InJnYmEoMTI3LDIwMSwxNzYsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgwKSIvPgogICAgPHJlY3QgeD0iLTciIHk9Ii02OCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjM4IiByeD0iMyIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjUpIiBzdHJva2U9InJnYmEoMTI3LDIwMSwxNzYsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSg0MCkiLz4KICAgIDxyZWN0IHg9Ii03IiB5PSItNjgiIHdpZHRoPSIxNCIgaGVpZ2h0PSIzOCIgcng9IjMiIGZpbGw9InJnYmEoMTI3LDIwMSwxNzYsMC41KSIgc3Ryb2tlPSJyZ2JhKDEyNywyMDEsMTc2LDAuOCkiIHN0cm9rZS13aWR0aD0iMSIgdHJhbnNmb3JtPSJyb3RhdGUoODApIi8+CiAgICA8cmVjdCB4PSItNyIgeT0iLTY4IiB3aWR0aD0iMTQiIGhlaWdodD0iMzgiIHJ4PSIzIiBmaWxsPSJyZ2JhKDEyNywyMDEsMTc2LDAuNSkiIHN0cm9rZT0icmdiYSgxMjcsMjAxLDE3NiwwLjgpIiBzdHJva2Utd2lkdGg9IjEiIHRyYW5zZm9ybT0icm90YXRlKDEyMCkiLz4KICAgIDxyZWN0IHg9Ii03IiB5PSItNjgiIHdpZHRoPSIxNCIgaGVpZ2h0PSIzOCIgcng9IjMiIGZpbGw9InJnYmEoMTI3LDIwMSwxNzYsMC41KSIgc3Ryb2tlPSJyZ2JhKDEyNywyMDEsMTc2LDAuOCkiIHN0cm9rZS13aWR0aD0iMSIgdHJhbnNmb3JtPSJyb3RhdGUoMTYwKSIvPgogICAgPHJlY3QgeD0iLTciIHk9Ii02OCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjM4IiByeD0iMyIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjUpIiBzdHJva2U9InJnYmEoMTI3LDIwMSwxNzYsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgyMDApIi8+CiAgICA8cmVjdCB4PSItNyIgeT0iLTY4IiB3aWR0aD0iMTQiIGhlaWdodD0iMzgiIHJ4PSIzIiBmaWxsPSJyZ2JhKDEyNywyMDEsMTc2LDAuNSkiIHN0cm9rZT0icmdiYSgxMjcsMjAxLDE3NiwwLjgpIiBzdHJva2Utd2lkdGg9IjEiIHRyYW5zZm9ybT0icm90YXRlKDI0MCkiLz4KICAgIDxyZWN0IHg9Ii03IiB5PSItNjgiIHdpZHRoPSIxNCIgaGVpZ2h0PSIzOCIgcng9IjMiIGZpbGw9InJnYmEoMTI3LDIwMSwxNzYsMC41KSIgc3Ryb2tlPSJyZ2JhKDEyNywyMDEsMTc2LDAuOCkiIHN0cm9rZS13aWR0aD0iMSIgdHJhbnNmb3JtPSJyb3RhdGUoMjgwKSIvPgogICAgPHJlY3QgeD0iLTciIHk9Ii02OCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjM4IiByeD0iMyIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjUpIiBzdHJva2U9InJnYmEoMTI3LDIwMSwxNzYsMC44KSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InJvdGF0ZSgzMjApIi8+CiAgICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMTYiIGZpbGw9InJnYmEoMTI3LDIwMSwxNzYsMC4zKSIgc3Ryb2tlPSJyZ2JhKDEyNywyMDEsMTc2LDAuNykiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwvZz4KICA8IS0tIFNoYWZ0IC0tPgogIDxsaW5lIHgxPSIxMjUiIHkxPSIxOTAiIHgyPSI0NzUiIHkyPSIxOTAiIHN0cm9rZT0icmdiYSgxNDMsMTYzLDE5MiwwLjQpIiBzdHJva2Utd2lkdGg9IjUiLz4KICA8IS0tIFNoYWZ0IGJlYXJpbmdzIC0tPgogIDxyZWN0IHg9IjI4MCIgeT0iMTgzIiB3aWR0aD0iNDAiIGhlaWdodD0iMTQiIHJ4PSIzIiBmaWxsPSJyZ2JhKDE0MywxNjMsMTkyLDAuMTUpIiBzdHJva2U9InJnYmEoMTQzLDE2MywxOTIsMC40KSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8dGV4dCB4PSIzMDAiIHk9IjE5NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgxNDMsMTYzLDE5MiwwLjYpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjciPkJFQVJJTkc8L3RleHQ+CiAgPCEtLSBMYWJlbHMgLS0+CiAgPHRleHQgeD0iMjAwIiB5PSIzNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjYpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIj5UVVJCSU5FIFNJREU8L3RleHQ+CiAgPHRleHQgeD0iMjAwIiB5PSIzNTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjMyLDEwMiwxMCwwLjQpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjgiPmV4aGF1c3QgZ2FzIGlubGV0PC90ZXh0PgogIDx0ZXh0IHg9IjQwMCIgeT0iMzQwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDEyNywyMDEsMTc2LDAuNikiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTAiPkNPTVBSRVNTT1IgU0lERTwvdGV4dD4KICA8dGV4dCB4PSI0MDAiIHk9IjM1NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjQpIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjgiPmNoYXJnZSBhaXIgb3V0bGV0PC90ZXh0PgogIDx0ZXh0IHg9IjIwIiB5PSIyNCIgZmlsbD0icmdiYSgyMzIsMTAyLDEwLDAuNCkiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTAiPi8vIFRVUkJPQ0hBUkdFUiDigJQgQ1JPU1MgU0VDVElPTjwvdGV4dD4KICA8IS0tIEdsb3dzIC0tPgogIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjE5MCIgcj0iMjAiIGZpbGw9InJnYmEoMjU1LDEwMCwwLDAuMTUpIi8+CiAgPGNpcmNsZSBjeD0iNDAwIiBjeT0iMTkwIiByPSIxOCIgZmlsbD0icmdiYSgxMjcsMjAxLDE3NiwwLjEyKSIvPgo8L3N2Zz4="
+           alt="Sezione turbocompressore"
+           style="width:100%; height:100%; object-fit:cover; filter:brightness(0.55) saturate(0.7); transition:filter 0.4s;"
+           onmouseover="this.style.filter='brightness(0.75) saturate(1)'"
+           onmouseout="this.style.filter='brightness(0.55) saturate(0.7)'">
+      <div style="position:absolute; bottom:0; left:0; right:0; padding:16px 20px; background:linear-gradient(to top, rgba(5,8,15,0.9), transparent);">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:0.08em; text-transform:uppercase;">Turbocompressore</p>
+        <p style="font-size:12px; color:var(--steel); margin-top:3px;">Sezione trasversale, componenti interni</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ENGLISH SECTION -->
+<section class="english-section">
+  <div class="reveal">
+    <p class="section-eyebrow">// technical english, IMO 3.17</p>
+    <h2 class="section-title">Inglese tecnico<br>per la <span class="acc">sala macchine.</span></h2>
+    <div class="glow-line"></div>
+    <p class="english-intro">La prova di inglese tecnico verifica che tu sappia leggere manuali tecnici è comunicare con un equipaggio multinazionale. Il corso include il vocabolario essenziale IMO è le frasi standard da usare in guardia.</p>
+  </div>
+  <div class="vocab-grid">
+    <div class="vocab-card reveal"><span class="vocab-en">main propulsion plant</span><span class="vocab-it">apparato motore principale</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">turbocharger</span><span class="vocab-it">turbocompressore</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">fuel injection timing</span><span class="vocab-it">anticipo di iniezione</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">crankshaft deflection</span><span class="vocab-it">flessione dell'albero motore</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">lube oil pressure</span><span class="vocab-it">pressione olio lubrificante</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">cylinder liner wear</span><span class="vocab-it">usura della canna cilindro</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">auxiliary boiler</span><span class="vocab-it">caldaia ausiliaria</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">oily water separator</span><span class="vocab-it">separatore acque oleose</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">overspeed trip</span><span class="vocab-it">dispositivo di blocco per sovravelocità</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">tie rod</span><span class="vocab-it">tirante</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">scavenge air</span><span class="vocab-it">aria di lavaggio</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">heat exchanger</span><span class="vocab-it">scambiatore di calore</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">double bottom tank</span><span class="vocab-it">doppio fondo</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">purifier / clarifier</span><span class="vocab-it">centrifuga / chiarificatore</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">bilge pump</span><span class="vocab-it">pompa sentina</span></div>
+    <div class="vocab-card reveal"><span class="vocab-en">piston ring clearance</span><span class="vocab-it">gioco del segmento pistone</span></div>
+  </div>
+  <div class="english-phrase-block reveal">
+    <h3>Frasi standard, Engine Room Watch</h3>
+    <div class="phrase-item"><span class="phrase-en">Engine room ready for manoeuvring.</span><span class="phrase-it">Sala macchine pronta per le manovre.</span></div>
+    <div class="phrase-item"><span class="phrase-en">Main engine is on standby, revolutions: 80 RPM.</span><span class="phrase-it">Motore principale in standby, giri: 80 RPM.</span></div>
+    <div class="phrase-item"><span class="phrase-en">Lube oil pressure has dropped below alarm limit.</span><span class="phrase-it">La pressione dell'olio lubrificante è scesa sotto il limite di allarme.</span></div>
+    <div class="phrase-item"><span class="phrase-en">I am taking over the engine room watch.</span><span class="phrase-it">Prendo in consegna la guardia in sala macchine.</span></div>
+    <div class="phrase-item"><span class="phrase-en">Auxiliary generator number 2 is running at full load.</span><span class="phrase-it">Il generatore ausiliario numero 2 è in funzione a pieno carico.</span></div>
+    <div class="phrase-item"><span class="phrase-en">Cooling water temperature exceeds normal range.</span><span class="phrase-it">La temperatura dell'acqua di raffreddamento supera il range normale.</span></div>
+    <div class="phrase-item"><span class="phrase-en">Bilge alarm activated in the engine room.</span><span class="phrase-it">Allarme sentina attivato in sala macchine.</span></div>
+  </div>
+</section>
+
+<!-- MODULI -->
+<section class="moduli-section" id="moduli">
+  <div class="reveal">
+    <p class="section-eyebrow">// programma ufficiale, D.D. 22 novembre 2016 Sez. A-III/1</p>
+    <h2 class="section-title">Tutto il programma.<br><span class="acc">Niente di meno.</span></h2>
+    <div class="glow-line"></div>
+    <p style="font-size:17px;color:var(--steel);line-height:1.75;max-width:620px;margin-top:20px;margin-bottom:48px;">Il corso copre integralmente le materie della prova teorica ufficiale, con video dedicati a ciascun argomento, esercizi pratici e domande simulate per ogni modulo.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:16px;">
+
+    <div class="modulo-card reveal">
+      <p class="modulo-num">01</p>
+      <h3>Motori Diesel, 2T e 4T</h3>
+      <ul>
+        <li>Struttura e funzionamento motori 2T e 4T, principali e ausiliari</li>
+        <li>Iniezione combustibile meccanica ed elettronica, consumi specifici</li>
+        <li>Lavaggio e sovralimentazione, turbocompressori e soffianti</li>
+        <li>Raffreddamento: circuiti, recupero calore, parametri operativi</li>
+        <li>Lubrificazione motori: circuiti, consumi, analisi olio</li>
+        <li>Preparazione, avviamento, conduzione, inversione marcia, arresto</li>
+        <li>Rilievo diagrammi, visite organi mobili, controlli pompe combustibile</li>
+        <li>Diagnosi guasti: fumo nero, bianco, perdita potenza, surriscaldamento</li>
+      </ul>
+    </div>
+
+    <div class="modulo-card reveal">
+      <p class="modulo-num">02</p>
+      <h3>Impianti Ausiliari e Pompaggio</h3>
+      <ul>
+        <li>Classificazione pompe, prevalenza, punto di funzionamento, cavitazione</li>
+        <li>Pompe di estrazione, alimento, circolazione, sentina, zavorra, incendio</li>
+        <li>Combustibili: proprieta, imbarco, preriscaldamento, decantazione, depurazione</li>
+        <li>Lubrificanti: tipi, caratteristiche, circuiti, depurazione e refrigerazione olio</li>
+        <li>Generatori vapore e caldaie ausiliarie: condotta, sicurezze, avarie</li>
+        <li>Distillatori, trattamento acque, analisi acque di caldaia</li>
+        <li>Oily water separator, casse raccolta, procedura MARPOL Annex I</li>
+      </ul>
+    </div>
+
+    <div class="modulo-card reveal">
+      <p class="modulo-num">03</p>
+      <h3>Impianto Elettrico di Bordo</h3>
+      <ul>
+        <li>Generatori c.c. e c.a., azionamento alternatore-asse</li>
+        <li>Avviamento, parallelo tra alternatori, ripartizione carico</li>
+        <li>Centrale elettrica principale e di emergenza, utenze prioritarie</li>
+        <li>Motori elettrici sincroni, asincroni e c.c.: avviamento, protezioni</li>
+        <li>Quadri elettrici, distribuzione, trasformatori, raddrizzatori, inverter</li>
+        <li>Isolamento circuiti, accumulatori, sistemi di comunicazione bordo</li>
+        <li>Avarie comuni, metodi di individuazione, norme sicurezza HV</li>
+      </ul>
+    </div>
+
+    <div class="modulo-card reveal">
+      <p class="modulo-num">04</p>
+      <h3>Manutenzione, Stabilita e Costruzione</h3>
+      <ul>
+        <li>Materiali navali: caratteristiche, lavorazioni, officina di bordo</li>
+        <li>Stabilita: diagrammi momento flettente, sforzi di taglio, falla</li>
+        <li>Costruzione navale: elementi strutturali, tipologie di navi</li>
+        <li>PMS (Planned Maintenance System): gestione informatica, ISM Code</li>
+        <li>Rilievo laschi astuccio asse, sistemi tenuta asse portaelica</li>
+        <li>Manutenzione impianto governo, ormeggio, frigorifero, ventilazione</li>
+        <li>Ispezione carena in bacino, log book di macchina</li>
+      </ul>
+    </div>
+
+    <div class="modulo-card reveal">
+      <p class="modulo-num">05</p>
+      <h3>Sicurezza, Emergenze e Antinquinamento</h3>
+      <ul>
+        <li>Procedure sicurezza su impianti elettrici e macchine prima di intervento</li>
+        <li>Azioni in caso di incaglio, falla, avaria grave in navigazione</li>
+        <li>Antincendio avanzato: impianti fissi e mobili in sala macchine</li>
+        <li>Procedure antinquinamento: idrocarburi, acque nere, rifiuti solidi</li>
+        <li>Inceneritore, impianti trattamento liquami, conferimento a terra</li>
+        <li>Pronto soccorso: infortuni tipici in sala macchine, norme antinfortunistiche</li>
+        <li>Simbologia impianti: meccanici, termici, idraulici, elettrici, antincendio</li>
+      </ul>
+    </div>
+
+    <div class="modulo-card reveal">
+      <p class="modulo-num">06</p>
+      <h3>Tenuta Guardia, Inglese Tecnico e Normativa</h3>
+      <ul>
+        <li>Consegna, rilevamento e accettazione guardia in macchina</li>
+        <li>Giornale di macchina: compilazione, registrazioni, responsabilita</li>
+        <li>Passaggio da automatico a manuale e viceversa su tutti i sistemi</li>
+        <li>Inglese tecnico IMO: 300+ termini, traduzione testi senza vocabolario</li>
+        <li>Frasi standard guardia macchine (SMCP), comunicazione multinazionale</li>
+        <li>Diritto marittimo: STCW Cap.III/VIII, ISM Code, MLC 2006, MARPOL</li>
+        <li>Normativa nazionale: D.Lgs.271/99, D.Lgs.272/99, D.P.R.324/2001</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="reveal" style="margin-top:40px;display:flex;gap:24px;flex-wrap:wrap;padding:20px 24px;background:var(--orange-dim);border:1px solid var(--border-orange);border-radius:8px;align-items:center;">
+    <div style="text-align:center;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--orange);line-height:1;">6</p><p style="font-size:12px;color:var(--steel);">moduli ufficiali</p></div>
+    <div style="text-align:center;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--orange);line-height:1;">60+</p><p style="font-size:12px;color:var(--steel);">video lezioni</p></div>
+    <div style="text-align:center;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--orange);line-height:1;">200+</p><p style="font-size:12px;color:var(--steel);">domande simulate</p></div>
+    <div style="text-align:center;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--orange);line-height:1;">300+</p><p style="font-size:12px;color:var(--steel);">termini EN/IT</p></div>
+    <div style="text-align:center;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:var(--orange);line-height:1;">&#8734;</p><p style="font-size:12px;color:var(--steel);">accesso a vita</p></div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section style="background:var(--navy); position:relative; z-index:1; padding:100px 6vw;">
+  <div class="reveal">
+    <p class="section-eyebrow">// dentro il corso</p>
+    <h2 class="section-title">Cosa trovi<br><span class="acc">modulo per modulo.</span></h2>
+    <div class="glow-line"></div>
+  </div>
+  <div style="margin-top:48px; display:flex; flex-direction:column; gap:12px; max-width:860px;">
+    <div class="reveal" style="background:rgba(143,163,192,0.03);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:72px 1fr;">
+        <div style="background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:#fff;">01</div>
+        <div style="padding:18px 24px;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:5px;">Motori Diesel 2T e 4T</p><p style="font-size:13px;color:var(--steel);">Struttura, iniezione, turbocompressori, raffreddamento, lubrificazione, conduzione, diagnosi guasti. <span style="color:var(--orange);">8 argomenti · 40+ domande</span></p></div>
+      </div>
+    </div>
+    <div class="reveal" style="background:rgba(143,163,192,0.03);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:72px 1fr;">
+        <div style="background:rgba(232,102,10,0.75);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:#fff;">02</div>
+        <div style="padding:18px 24px;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:5px;">Impianti Ausiliari e Pompaggio</p><p style="font-size:13px;color:var(--steel);">Pompe, combustibili, lubrificanti, caldaie, distillatori, separatori MARPOL. <span style="color:var(--orange);">7 argomenti · 35+ domande</span></p></div>
+      </div>
+    </div>
+    <div class="reveal" style="background:rgba(143,163,192,0.03);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:72px 1fr;">
+        <div style="background:rgba(232,102,10,0.55);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:#fff;">03</div>
+        <div style="padding:18px 24px;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:5px;">Impianto Elettrico di Bordo</p><p style="font-size:13px;color:var(--steel);">Generatori, parallelo, quadro principale, motori elettrici, protezioni, HV. <span style="color:var(--orange);">7 argomenti · 38+ domande</span></p></div>
+      </div>
+    </div>
+    <div class="reveal" style="background:rgba(143,163,192,0.03);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:72px 1fr;">
+        <div style="background:rgba(232,102,10,0.38);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:#fff;">04</div>
+        <div style="padding:18px 24px;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:5px;">Manutenzione, Stabilita e Costruzione</p><p style="font-size:13px;color:var(--steel);">Materiali navali, stabilita, PMS, ISM Code, log book, manutenzione impianti. <span style="color:var(--orange);">7 argomenti · 30+ domande</span></p></div>
+      </div>
+    </div>
+    <div class="reveal" style="background:rgba(143,163,192,0.03);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:72px 1fr;">
+        <div style="background:rgba(232,102,10,0.22);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--orange);">05</div>
+        <div style="padding:18px 24px;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:5px;">Sicurezza, Emergenze e Antinquinamento</p><p style="font-size:13px;color:var(--steel);">Antincendio avanzato, procedure falla, MARPOL, pronto soccorso, simbologia impianti. <span style="color:var(--orange);">6 argomenti · 30+ domande</span></p></div>
+      </div>
+    </div>
+    <div class="reveal" style="background:rgba(143,163,192,0.03);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:72px 1fr;">
+        <div style="background:rgba(232,102,10,0.1);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:rgba(232,102,10,0.6);">06</div>
+        <div style="padding:18px 24px;"><p style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:5px;">Guardia, Inglese Tecnico e Normativa</p><p style="font-size:13px;color:var(--steel);">Tenuta guardia, giornale macchine, SMCP inglese tecnico, STCW/ISM/MLC 2006, diritto marittimo. <span style="color:var(--orange);">7 argomenti · 30+ domande</span></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SCHEMA INTERATTIVO MOTORE -->
+<div class="reveal" style="margin-top:60px;">
+  <p style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--orange); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:16px;">// schema interattivo, clicca sui componenti</p>
+  <div style="display:grid; grid-template-columns:1fr 360px; gap:24px; align-items:start; --eng-cols:1fr 360px;">
+    <div style="background:rgba(13,27,62,0.6); border:1px solid var(--border); border-radius:8px; padding:20px; position:relative; min-height:420px; z-index:10; isolation:isolate;">
+      <svg id="engine-svg" viewBox="0 0 700 460" style="width:100%;height:auto;cursor:pointer;display:block;" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="egrid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0L0 0 0 28" fill="none" stroke="rgba(143,163,192,0.07)" stroke-width="1"/>
+    </pattern>
+    <filter id="glow-orange">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-teal">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="blockGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(232,102,10,0.18)"/>
+      <stop offset="100%" stop-color="rgba(232,102,10,0.04)"/>
+    </linearGradient>
+    <linearGradient id="crankGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(143,163,192,0.3)"/>
+      <stop offset="50%" stop-color="rgba(143,163,192,0.6)"/>
+      <stop offset="100%" stop-color="rgba(143,163,192,0.3)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="460" fill="#06090f"/>
+  <rect width="700" height="460" fill="url(#egrid)"/>
+
+  <!-- Header label -->
+  <text x="20" y="22" fill="rgba(232,102,10,0.45)" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1">// MOTORE DIESEL, SCHEMA INTERATTIVO · CLICCA SUI COMPONENTI</text>
+
+  <!-- ═══ ENGINE BLOCK ════════════════════════════════════════════════════ -->
+  <rect x="155" y="95" width="310" height="220" rx="10" fill="url(#blockGrad)" stroke="rgba(232,102,10,0.25)" stroke-width="1.5"/>
+
+  <!-- ═══ CYLINDER LINERS (4) ════════════════════════════════════════════ -->
+  <!-- Cyl 1 -->
+  <g id="cyl1" class="eng-part" data-label="Canna Cilindro (Cylinder Liner)"
+     data-desc="La canna cilindro è la sede di scorrimento del pistone. Soggetta a usura per attrito e corrosione. Si misura con il micrometro in più punti. L'usura limite è indicata dal costruttore nel manuale motore.">
+    <rect x="168" y="108" width="52" height="95" rx="5" fill="rgba(232,102,10,0.1)" stroke="rgba(232,102,10,0.45)" stroke-width="1.5"/>
+    <rect x="178" y="115" width="32" height="75" rx="3" fill="rgba(232,102,10,0.06)" stroke="rgba(232,102,10,0.3)" stroke-width="1"/>
+    <text x="194" y="104" text-anchor="middle" fill="rgba(232,102,10,0.55)" font-family="JetBrains Mono,monospace" font-size="8">CYL 1</text>
+  </g>
+
+  <!-- Cyl 2 -->
+  <g id="cyl2" class="eng-part" data-label="Canna Cilindro (Cylinder Liner)"
+     data-desc="La canna cilindro è la sede di scorrimento del pistone. Soggetta a usura per attrito e corrosione. Si misura con il micrometro in più punti. L'usura limite è indicata dal costruttore nel manuale motore.">
+    <rect x="233" y="108" width="52" height="95" rx="5" fill="rgba(232,102,10,0.1)" stroke="rgba(232,102,10,0.45)" stroke-width="1.5"/>
+    <rect x="243" y="115" width="32" height="75" rx="3" fill="rgba(232,102,10,0.06)" stroke="rgba(232,102,10,0.3)" stroke-width="1"/>
+    <text x="259" y="104" text-anchor="middle" fill="rgba(232,102,10,0.55)" font-family="JetBrains Mono,monospace" font-size="8">CYL 2</text>
+  </g>
+
+  <!-- Cyl 3 -->
+  <g id="cyl3" class="eng-part" data-label="Canna Cilindro (Cylinder Liner)"
+     data-desc="La canna cilindro è la sede di scorrimento del pistone. Soggetta a usura per attrito e corrosione. Si misura con il micrometro in più punti. L'usura limite è indicata dal costruttore nel manuale motore.">
+    <rect x="298" y="108" width="52" height="95" rx="5" fill="rgba(232,102,10,0.1)" stroke="rgba(232,102,10,0.45)" stroke-width="1.5"/>
+    <rect x="308" y="115" width="32" height="75" rx="3" fill="rgba(232,102,10,0.06)" stroke="rgba(232,102,10,0.3)" stroke-width="1"/>
+    <text x="324" y="104" text-anchor="middle" fill="rgba(232,102,10,0.55)" font-family="JetBrains Mono,monospace" font-size="8">CYL 3</text>
+  </g>
+
+  <!-- Cyl 4 -->
+  <g id="cyl4" class="eng-part" data-label="Canna Cilindro (Cylinder Liner)"
+     data-desc="La canna cilindro è la sede di scorrimento del pistone. Soggetta a usura per attrito e corrosione. Si misura con il micrometro in più punti. L'usura limite è indicata dal costruttore nel manuale motore.">
+    <rect x="363" y="108" width="52" height="95" rx="5" fill="rgba(232,102,10,0.1)" stroke="rgba(232,102,10,0.45)" stroke-width="1.5"/>
+    <rect x="373" y="115" width="32" height="75" rx="3" fill="rgba(232,102,10,0.06)" stroke="rgba(232,102,10,0.3)" stroke-width="1"/>
+    <text x="389" y="104" text-anchor="middle" fill="rgba(232,102,10,0.55)" font-family="JetBrains Mono,monospace" font-size="8">CYL 4</text>
+  </g>
+
+  <!-- ═══ PISTONS ══════════════════════════════════════════════════════════ -->
+  <rect class="eng-part" id="piston1" data-label="Pistone e Segmenti" data-desc="Il pistone trasmette la forza di combustione all'albero motore tramite la biella. I segmenti (fasce elastiche) garantiscono la tenuta dei gas e il raschiamento dell'olio. Il gioco segmenti-canna è un parametro fondamentale di manutenzione."
+        x="181" y="145" width="26" height="20" rx="3" fill="rgba(232,102,10,0.55)" stroke="rgba(255,140,40,0.8)" stroke-width="1.5"/>
+  <rect class="eng-part" id="piston2" data-label="Pistone e Segmenti" data-desc="Il pistone trasmette la forza di combustione all'albero motore tramite la biella. I segmenti (fasce elastiche) garantiscono la tenuta dei gas e il raschiamento dell'olio. Il gioco segmenti-canna è un parametro fondamentale di manutenzione."
+        x="246" y="135" width="26" height="20" rx="3" fill="rgba(232,102,10,0.55)" stroke="rgba(255,140,40,0.8)" stroke-width="1.5"/>
+  <rect class="eng-part" id="piston3" data-label="Pistone e Segmenti" data-desc="Il pistone trasmette la forza di combustione all'albero motore tramite la biella. I segmenti (fasce elastiche) garantiscono la tenuta dei gas e il raschiamento dell'olio. Il gioco segmenti-canna è un parametro fondamentale di manutenzione."
+        x="311" y="150" width="26" height="20" rx="3" fill="rgba(232,102,10,0.55)" stroke="rgba(255,140,40,0.8)" stroke-width="1.5"/>
+  <rect class="eng-part" id="piston4" data-label="Pistone e Segmenti" data-desc="Il pistone trasmette la forza di combustione all'albero motore tramite la biella. I segmenti (fasce elastiche) garantiscono la tenuta dei gas e il raschiamento dell'olio. Il gioco segmenti-canna è un parametro fondamentale di manutenzione."
+        x="376" y="140" width="26" height="20" rx="3" fill="rgba(232,102,10,0.55)" stroke="rgba(255,140,40,0.8)" stroke-width="1.5"/>
+
+  <!-- ═══ CONNECTING RODS ═════════════════════════════════════════════════ -->
+  <line x1="194" y1="165" x2="210" y2="255" stroke="rgba(143,163,192,0.35)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="259" y1="155" x2="255" y2="255" stroke="rgba(143,163,192,0.35)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="324" y1="170" x2="308" y2="255" stroke="rgba(143,163,192,0.35)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="389" y1="160" x2="362" y2="255" stroke="rgba(143,163,192,0.35)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- ═══ CRANKSHAFT ═══════════════════════════════════════════════════════ -->
+  <g id="crankshaft" class="eng-part" data-label="Albero Motore (Crankshaft)"
+     data-desc="L'albero motore converte il moto rettilineo dei pistoni in moto rotatorio. La flessione (deflection) si misura con il comparatore girando l'albero. Se supera i limiti del costruttore indica cedimento dei supporti di banco, ispezione e riparazione immediate.">
+    <rect x="140" y="248" width="340" height="28" rx="6" fill="url(#crankGrad)" stroke="rgba(143,163,192,0.4)" stroke-width="2"/>
+    <circle cx="210" cy="262" r="10" fill="rgba(143,163,192,0.15)" stroke="rgba(143,163,192,0.5)" stroke-width="1.5"/>
+    <circle cx="258" cy="262" r="10" fill="rgba(143,163,192,0.15)" stroke="rgba(143,163,192,0.5)" stroke-width="1.5"/>
+    <circle cx="306" cy="262" r="10" fill="rgba(143,163,192,0.15)" stroke="rgba(143,163,192,0.5)" stroke-width="1.5"/>
+    <circle cx="354" cy="262" r="10" fill="rgba(143,163,192,0.15)" stroke="rgba(143,163,192,0.5)" stroke-width="1.5"/>
+    <text x="310" y="296" text-anchor="middle" fill="rgba(143,163,192,0.45)" font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="1">CRANKSHAFT</text>
+  </g>
+
+  <!-- ═══ INJECTORS ════════════════════════════════════════════════════════ -->
+  <g id="injector1" class="eng-part" data-label="Iniettore (Fuel Injector)"
+     data-desc="L'iniettore polverizza il combustibile nella camera di combustione ad alta pressione (200-2000 bar). L'usura degli iniettori causa: fumo nero, perdita di potenza, aumento consumi. Si verifica con il banco prova iniettori. Pressione di apertura e forma del getto sono i parametri critici.">
+    <rect x="187" y="83" width="14" height="26" rx="2" fill="rgba(255,200,50,0.2)" stroke="rgba(255,200,50,0.7)" stroke-width="1.5" filter="url(#glow-orange)"/>
+    <text x="194" y="79" text-anchor="middle" fill="rgba(255,200,50,0.6)" font-family="JetBrains Mono,monospace" font-size="7">INJ</text>
+  </g>
+  <g id="injector2" class="eng-part" data-label="Iniettore (Fuel Injector)"
+     data-desc="L'iniettore polverizza il combustibile nella camera di combustione ad alta pressione (200-2000 bar). L'usura degli iniettori causa: fumo nero, perdita di potenza, aumento consumi. Si verifica con il banco prova iniettori. Pressione di apertura e forma del getto sono i parametri critici.">
+    <rect x="252" y="83" width="14" height="26" rx="2" fill="rgba(255,200,50,0.2)" stroke="rgba(255,200,50,0.7)" stroke-width="1.5" filter="url(#glow-orange)"/>
+    <text x="259" y="79" text-anchor="middle" fill="rgba(255,200,50,0.6)" font-family="JetBrains Mono,monospace" font-size="7">INJ</text>
+  </g>
+  <g id="injector3" class="eng-part" data-label="Iniettore (Fuel Injector)"
+     data-desc="L'iniettore polverizza il combustibile nella camera di combustione ad alta pressione (200-2000 bar). L'usura degli iniettori causa: fumo nero, perdita di potenza, aumento consumi. Si verifica con il banco prova iniettori. Pressione di apertura e forma del getto sono i parametri critici.">
+    <rect x="317" y="83" width="14" height="26" rx="2" fill="rgba(255,200,50,0.2)" stroke="rgba(255,200,50,0.7)" stroke-width="1.5" filter="url(#glow-orange)"/>
+    <text x="324" y="79" text-anchor="middle" fill="rgba(255,200,50,0.6)" font-family="JetBrains Mono,monospace" font-size="7">INJ</text>
+  </g>
+  <g id="injector4" class="eng-part" data-label="Iniettore (Fuel Injector)"
+     data-desc="L'iniettore polverizza il combustibile nella camera di combustione ad alta pressione (200-2000 bar). L'usura degli iniettori causa: fumo nero, perdita di potenza, aumento consumi. Si verifica con il banco prova iniettori. Pressione di apertura e forma del getto sono i parametri critici.">
+    <rect x="382" y="83" width="14" height="26" rx="2" fill="rgba(255,200,50,0.2)" stroke="rgba(255,200,50,0.7)" stroke-width="1.5" filter="url(#glow-orange)"/>
+    <text x="389" y="79" text-anchor="middle" fill="rgba(255,200,50,0.6)" font-family="JetBrains Mono,monospace" font-size="7">INJ</text>
+  </g>
+
+  <!-- ═══ TURBOCHARGER ════════════════════════════════════════════════════ -->
+  <g id="turbo" class="eng-part" data-label="Turbocompressore (Turbocharger)"
+     data-desc="Il turbocompressore aumenta la pressione dell'aria di alimentazione sfruttando l'energia dei gas di scarico. Causa comune di anomalie: pale turbina/compressore sporche, perdite nei condotti gas, cuscinetti usurati per lubrificazione insufficiente. Bassa velocità TC riduce l'efficienza e causa fumo nero.">
+    <circle cx="580" cy="175" r="58" fill="rgba(232,102,10,0.05)" stroke="rgba(232,102,10,0.2)" stroke-width="1.5"/>
+    <circle cx="580" cy="175" r="40" fill="rgba(232,102,10,0.08)" stroke="rgba(232,102,10,0.35)" stroke-width="2"/>
+    <!-- Turbine blades -->
+    <g transform="translate(580,175)">
+      <rect x="-5" y="-36" width="10" height="20" rx="3" fill="rgba(232,102,10,0.6)" stroke="rgba(232,102,10,0.9)" stroke-width="1" transform="rotate(0)"/>
+      <rect x="-5" y="-36" width="10" height="20" rx="3" fill="rgba(232,102,10,0.6)" stroke="rgba(232,102,10,0.9)" stroke-width="1" transform="rotate(45)"/>
+      <rect x="-5" y="-36" width="10" height="20" rx="3" fill="rgba(232,102,10,0.6)" stroke="rgba(232,102,10,0.9)" stroke-width="1" transform="rotate(90)"/>
+      <rect x="-5" y="-36" width="10" height="20" rx="3" fill="rgba(232,102,10,0.6)" stroke="rgba(232,102,10,0.9)" stroke-width="1" transform="rotate(135)"/>
+      <rect x="-5" y="-36" width="10" height="20" rx="3" fill="rgba(232,102,10,0.6)" stroke="rgba(232,102,10,0.9)" stroke-width="1" transform="rotate(180)"/>
+      <rect x="-5" y="-36" width="10" height="20" rx="3" fill="rgba(232,102,10,0.6)" stroke="rgba(232,102,10,0.9)" stroke-width="1" transform="rotate(225)"/>
+      <rect x="-5" y="-36" width="10" height="20" rx="3" fill="rgba(232,102,10,0.6)" stroke="rgba(232,102,10,0.9)" stroke-width="1" transform="rotate(270)"/>
+      <rect x="-5" y="-36" width="10" height="20" rx="3" fill="rgba(232,102,10,0.6)" stroke="rgba(232,102,10,0.9)" stroke-width="1" transform="rotate(315)"/>
+      <circle r="10" fill="rgba(232,102,10,0.4)" stroke="rgba(255,140,40,0.8)" stroke-width="2" filter="url(#glow-orange)"/>
+    </g>
+    <text x="580" y="248" text-anchor="middle" fill="rgba(232,102,10,0.5)" font-family="JetBrains Mono,monospace" font-size="9">TURBOCHARGER</text>
+  </g>
+
+  <!-- Exhaust pipe to TC -->
+  <path d="M465 145 Q510 120 525 155" stroke="rgba(232,102,10,0.4)" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M465 145 Q510 120 525 155" stroke="rgba(232,102,10,0.15)" stroke-width="11" fill="none" stroke-linecap="round"/>
+  <text x="490" y="116" text-anchor="middle" fill="rgba(232,102,10,0.35)" font-family="JetBrains Mono,monospace" font-size="8">EXHAUST</text>
+
+  <!-- Scavenge air from TC -->
+  <path d="M530 195 Q505 210 465 200" stroke="rgba(127,201,176,0.4)" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="6,3"/>
+  <text x="500" y="222" text-anchor="middle" fill="rgba(127,201,176,0.35)" font-family="JetBrains Mono,monospace" font-size="8">SCAVENGE AIR</text>
+
+  <!-- ═══ LO PUMP ═══════════════════════════════════════════════════════════ -->
+  <g id="lopump" class="eng-part" data-label="Pompa Olio Lubrificante (LO Pump)"
+     data-desc="Mantiene la pressione dell'olio su tutti i cuscinetti (banco, biella, perno di manovella). Pressione normale: 3.5-5 bar. Un calo pressione sotto il limite causa allarme e blocco automatico del motore (slow-down / shut-down). Verifica: manometro locale e remoto, analisi olio periodica.">
+    <rect x="28" y="120" width="88" height="44" rx="6" fill="rgba(127,201,176,0.07)" stroke="rgba(127,201,176,0.4)" stroke-width="1.5"/>
+    <text x="72" y="138" text-anchor="middle" fill="rgba(127,201,176,0.7)" font-family="JetBrains Mono,monospace" font-size="8" font-weight="500">LO PUMP</text>
+    <text x="72" y="152" text-anchor="middle" fill="rgba(127,201,176,0.45)" font-family="JetBrains Mono,monospace" font-size="7">3.5-5 bar</text>
+    <!-- Pump symbol -->
+    <circle cx="30" cy="142" r="6" fill="none" stroke="rgba(127,201,176,0.4)" stroke-width="1"/>
+  </g>
+  <line x1="116" y1="142" x2="155" y2="240" stroke="rgba(127,201,176,0.25)" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- ═══ FO PUMP / PURIFIER ═══════════════════════════════════════════════ -->
+  <g id="fuelpump" class="eng-part" data-label="Pompa Combustibile e Purificatore"
+     data-desc="La pompa combustibile alimenta gli iniettori ad alta pressione tramite i plunger. L'usura dei plunger riduce la portata e altera la polverizzazione. Il purificatore (centrifuga) separa acqua e impurità dal combustibile, parametri critici: temperatura, densità, flusso.">
+    <rect x="28" y="185" width="88" height="44" rx="6" fill="rgba(143,163,192,0.06)" stroke="rgba(143,163,192,0.3)" stroke-width="1.5"/>
+    <text x="72" y="203" text-anchor="middle" fill="rgba(143,163,192,0.65)" font-family="JetBrains Mono,monospace" font-size="8" font-weight="500">FO PUMP</text>
+    <text x="72" y="218" text-anchor="middle" fill="rgba(143,163,192,0.4)" font-family="JetBrains Mono,monospace" font-size="7">PURIFIER</text>
+  </g>
+  <line x1="116" y1="205" x2="155" y2="200" stroke="rgba(143,163,192,0.2)" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- ═══ COOLING WATER ═════════════════════════════════════════════════════ -->
+  <g id="cooling" class="eng-part" data-label="Impianto Raffreddamento (Cooling Water)"
+     data-desc="Il circuito acqua dolce raffredda camicie, testate e iniettori. Temperatura normale: 75-88°C. Il calore viene ceduto all'acqua di mare tramite lo scambiatore di calore (heat exchanger). Parametri monitorati in guardia: temperatura uscita camicie, pressione circuito, livello cassa espansione.">
+    <rect x="28" y="250" width="88" height="44" rx="6" fill="rgba(100,180,255,0.06)" stroke="rgba(100,180,255,0.3)" stroke-width="1.5"/>
+    <text x="72" y="268" text-anchor="middle" fill="rgba(100,180,255,0.6)" font-family="JetBrains Mono,monospace" font-size="8" font-weight="500">COOLING</text>
+    <text x="72" y="282" text-anchor="middle" fill="rgba(100,180,255,0.4)" font-family="JetBrains Mono,monospace" font-size="7">75-88 °C</text>
+  </g>
+  <line x1="116" y1="270" x2="155" y2="295" stroke="rgba(100,180,255,0.2)" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- ═══ LEGEND ═══════════════════════════════════════════════════════════ -->
+  <rect x="155" y="355" width="390" height="90" rx="8" fill="rgba(13,27,62,0.5)" stroke="rgba(143,163,192,0.1)" stroke-width="1"/>
+  <text x="175" y="374" fill="rgba(232,102,10,0.6)" font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="0.5">// COMPONENTI CLICCABILI</text>
+  <rect x="175" y="382" width="8" height="8" rx="1" fill="rgba(232,102,10,0.5)" stroke="rgba(232,102,10,0.8)" stroke-width="1"/>
+  <text x="190" y="390" fill="rgba(232,102,10,0.55)" font-family="JetBrains Mono,monospace" font-size="8">Canne cilindro</text>
+  <rect x="175" y="396" width="8" height="8" rx="1" fill="rgba(255,200,50,0.4)" stroke="rgba(255,200,50,0.8)" stroke-width="1"/>
+  <text x="190" y="404" fill="rgba(255,200,50,0.55)" font-family="JetBrains Mono,monospace" font-size="8">Iniettori</text>
+  <rect x="175" y="410" width="8" height="8" rx="1" fill="rgba(143,163,192,0.3)" stroke="rgba(143,163,192,0.7)" stroke-width="1"/>
+  <text x="190" y="418" fill="rgba(143,163,192,0.55)" font-family="JetBrains Mono,monospace" font-size="8">Albero motore</text>
+  <rect x="295" y="382" width="8" height="8" rx="1" fill="rgba(232,102,10,0.6)" stroke="rgba(255,140,40,0.9)" stroke-width="1"/>
+  <text x="310" y="390" fill="rgba(232,102,10,0.55)" font-family="JetBrains Mono,monospace" font-size="8">Turbocompressore</text>
+  <rect x="295" y="396" width="8" height="8" rx="1" fill="rgba(127,201,176,0.3)" stroke="rgba(127,201,176,0.7)" stroke-width="1"/>
+  <text x="310" y="404" fill="rgba(127,201,176,0.55)" font-family="JetBrains Mono,monospace" font-size="8">Pompa olio LO</text>
+  <rect x="295" y="410" width="8" height="8" rx="1" fill="rgba(143,163,192,0.2)" stroke="rgba(143,163,192,0.5)" stroke-width="1"/>
+  <text x="310" y="418" fill="rgba(143,163,192,0.55)" font-family="JetBrains Mono,monospace" font-size="8">Pompa FO / Purificatore</text>
+  <rect x="440" y="382" width="8" height="8" rx="1" fill="rgba(100,180,255,0.2)" stroke="rgba(100,180,255,0.6)" stroke-width="1"/>
+  <text x="455" y="390" fill="rgba(100,180,255,0.55)" font-family="JetBrains Mono,monospace" font-size="8">Raffreddamento</text>
+  <rect x="440" y="396" width="8" height="8" rx="1" fill="rgba(232,102,10,0.5)" stroke="rgba(255,140,40,0.8)" stroke-width="1"/>
+  <text x="455" y="404" fill="rgba(232,102,10,0.55)" font-family="JetBrains Mono,monospace" font-size="8">Pistone / Segmenti</text>
+</svg>
+    </div>
+    <div id="eng-info-panel" style="background:rgba(13,27,62,0.6); border:1px solid var(--border-orange); border-radius:8px; padding:28px; min-height:200px; display:flex; flex-direction:column; justify-content:center;">
+      <p style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:14px;" id="eng-component-name">Seleziona un componente</p>
+      <p style="font-size:15px; color:var(--steel-light); line-height:1.7;" id="eng-component-desc">Clicca su qualsiasi parte del motore per visualizzare informazioni tecniche, parametri operativi e le domande tipiche della commissione su quel componente..</p>
+      <div id="eng-exam-tip" style="display:none; margin-top:16px; padding:12px 16px; background:rgba(232,102,10,0.06); border:1px solid rgba(232,102,10,0.2); border-radius:6px;">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px;">// domanda tipica esame</p>
+        <p style="font-size:13px; color:var(--steel); line-height:1.6;" id="eng-exam-q"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOMANDE TIPICHE -->
+<section class="domande-section">
+  <div class="reveal">
+    <p class="section-eyebrow">// domande tipiche d'esame</p>
+    <h2 class="section-title">Cosa ti chiede<br>realmente la <span class="acc">commissione.</span></h2>
+    <div class="glow-line"></div>
+  </div>
+  <div class="domande-grid">
+    <div class="domanda-card reveal"><p class="domanda-cat">Motore diesel</p><p>Spiegare le cause di formazione di fumo nero è le procedure di diagnosi a bordo.</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">Turbocompressore</p><p>Quali sono le cause di bassa velocità del turbocompressore è come si interviene?</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">Impianto elettrico</p><p>Descrivere la procedura per mettere in parallelo due generatori diesel alternatori.</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">Ausiliari</p><p>Come si verifica l'efficienza di un separatore olio combustibile? Quali allarmi prevede?</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">Sicurezze</p><p>Quali dispositivi di sicurezza del motore non possono essere bypassati in emergenza?</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">Manutenzione</p><p>Quali sono i limiti di usura della canna cilindro è come si misurano?</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">MARPOL</p><p>Descrivere il funzionamento dell'oily water separator è i requisiti MARPOL Annex I.</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">Guardia</p><p>Quali controlli effettua l'ufficiale di guardia in macchina durante la navigazione ordinaria?</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">Inglese tecnico</p><p>"The crankshaft deflection readings exceed the permissible limits.", tradurre è spiegare le conseguenze operative.</p></div>
+    <div class="domanda-card reveal"><p class="domanda-cat">STCW</p><p>Quali sono gli orari di riposo minimi per l'ufficiale di guardia secondo STCW MLC 2006?</p></div>
+  </div>
+</section>
+
+<!-- STCW INFO -->
+<section class="stcw-section">
+  <div class="reveal">
+    <p class="section-eyebrow">// requisiti di accesso</p>
+    <h2 class="section-title">Cosa serve<br>per accedere <span class="acc">all'esame.</span></h2>
+    <div class="glow-line"></div>
+  </div>
+  <div class="stcw-grid">
+    <div class="stcw-card reveal">
+      <h3>STCW III/1, Ufficiale di Macchina</h3>
+      <p>12 mesi di navigazione nel libretto di addestramento oppure 36 mesi di navigazione in servizio macchine su navi con apparato pari o superiore a 750 kW.</p>
+    </div>
+    <div class="stcw-card reveal">
+      <h3>STCW III/2, Primo Ufficiale</h3>
+      <p>18 mesi di navigazione come Ufficiale di guardia in macchina su navi con apparato pari o superiore a 3000 kW. Richiede High Voltage Technology livello direttivo.</p>
+    </div>
+    <div class="stcw-card reveal">
+      <h3>Corsi obbligatori</h3>
+      <p>Antincendio avanzato (Sez. A-VI/3), MAMS (Sez. A-VI/2.1), First Aid (Sez. A-VI/4.1), High Voltage Technology livello operativo, tutti in corso di validita.</p>
+    </div>
+    <div class="stcw-card reveal">
+      <h3>Riferimento normativo</h3>
+      <p>DM 17 dicembre 2007, Decreto Direttoriale 22 novembre 2016, Decreto 75/2025. Emendamenti Manila 2010 alla Convenzione STCW'78.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHI INSEGNA -->
+<section style="background:var(--bg3); position:relative; z-index:1; padding:110px 6vw;">
+  <div class="reveal">
+    <p class="section-eyebrow">// il tuo istruttore</p>
+    <h2 class="section-title">Alessandro Errico.<br><span class="acc2">Direttore di Macchina</span> IMO III/2.</h2>
+    <div class="glow-line"></div>
+  </div>
+  <div style="display:grid; grid-template-columns:280px 1fr; gap:60px; align-items:center; margin-top:56px;" class="reveal about-resp">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div style="width:240px;height:240px;border-radius:50%;overflow:hidden;border:3px solid rgba(232,102,10,0.5);box-shadow:0 0 40px rgba(232,102,10,0.15);flex-shrink:0;position:relative;">
+        <img src="data:image/jpeg;base64,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" alt="Alessandro Errico" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-40%);width:75%;height:auto;border-radius:50%;">
+      </div>
+      <div style="text-align:center;">
+        <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Alessandro Errico</p>
+        <p style="font-size:13px;color:var(--steel);">Direttore di Macchina IMO III/2</p>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:'Barlow Condensed',sans-serif; font-size:28px; font-weight:700; color:var(--cream); margin-bottom:18px;">Non un professore. Un professionista che ha fatto la tua stessa strada.</h3>
+      <p style="font-size:16px; color:var(--steel); line-height:1.8; margin-bottom:14px;">Alessandro Errico è Direttore di Macchina certificato IMO III/2, con anni di navigazione su navi commerciali di grande stazza. Ha sostenuto gli stessi esami che stai preparando, ha fatto guardia in sale macchine su cui devi sapere tutto, conosce le domande che fa la commissione perché le ha ricevute.</p>
+      <p style="font-size:16px; color:var(--steel); line-height:1.8; margin-bottom:14px;">Area metropolitana di La Spezia. Abilitazione STCW sezione A-III/2. Ha costruito questo corso per dare a ogni allievo il metodo che nessuna scuola nautica trasmette davvero: come pensare da ufficiale, non solo da studente.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:24px;">
+        <span style="background:var(--orange-dim); border:1px solid var(--border-orange); color:var(--orange); font-size:12px; font-weight:500; padding:6px 16px; border-radius:4px; font-family:'JetBrains Mono',monospace;">IMO III/2</span>
+        <span style="background:var(--orange-dim); border:1px solid var(--border-orange); color:var(--orange); font-size:12px; font-weight:500; padding:6px 16px; border-radius:4px; font-family:'JetBrains Mono',monospace;">Chief Engineer</span>
+        <span style="background:rgba(143,163,192,0.06); border:1px solid var(--border); color:var(--steel); font-size:12px; font-weight:500; padding:6px 16px; border-radius:4px; font-family:'JetBrains Mono',monospace;">STCW certified</span>
+        <span style="background:rgba(143,163,192,0.06); border:1px solid var(--border); color:var(--steel); font-size:12px; font-weight:500; padding:6px 16px; border-radius:4px; font-family:'JetBrains Mono',monospace;">La Spezia</span>
+      </div>
+      <a href="https://it.linkedin.com/in/alessandro-errico-26b194188" target="_blank" style="display:inline-flex; align-items:center; gap:10px; margin-top:26px; background:var(--orange-dim); border:1px solid var(--border-orange); color:var(--orange); font-size:13px; font-weight:500; padding:11px 22px; border-radius:6px; transition:background 0.2s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        Profilo LinkedIn &#8599;
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="reveal">
+    <p class="section-eyebrow">// scegli il tuo percorso</p>
+    <h2 class="section-title">Due piani.<br>Un solo <span class="acc">obiettivo.</span></h2>
+    <div class="glow-line"></div>
+    <p style="font-size:17px;color:var(--steel);line-height:1.7;max-width:580px;margin-top:20px;margin-bottom:56px;">Il corso da solo ti da tutto il programma. Con l'Elite hai anche Alessandro al tuo fianco per 20 ore, fino all'esame.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:24px;max-width:900px;">
+
+    <!-- PIANO BASE -->
+    <div class="plan-card plan-base reveal">
+      <p class="plan-label">Base</p>
+      <p class="plan-name">Standard</p>
+      <p class="plan-tagline">Tutto il programma STCW A-III/1. Niente di meno.</p>
+      <div class="plan-price">
+        <span class="price-cur">&#8364;</span>
+        <span class="price-num">1.197</span>
+        <span class="price-strike">&#8364;1.497</span>
+      </div>
+      <p class="price-period">pagamento unico &middot; accesso a vita</p>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="ic">+</span>6 moduli video completi, programma ufficiale STCW A-III/1</li>
+        <li><span class="ic">+</span>200+ domande d'esame simulate con risposte</li>
+        <li><span class="ic">+</span>Vocabolario inglese tecnico IMO, 300+ termini EN/IT</li>
+        <li><span class="ic">+</span>Frasi standard guardia macchine (SMCP)</li>
+        <li><span class="ic">+</span>Test autovalutazione per ogni modulo</li>
+        <li><span class="ic">+</span>Accesso permanente, inclusi gli aggiornamenti normativi</li>
+        <li><span class="ic">+</span>Comunita privata</li>
+      </ul>
+      <a href="https://neuroplasticitytraining.it/order?link=SE4ju&pricing_plan=PjWlK4LEGv" target="_blank" class="plan-cta">Acquista ora &#8599;</a>
+    </div>
+
+    <!-- PIANO ELITE -->
+    <div class="plan-card plan-pro reveal" style="position:relative;">
+      <span class="plan-badge">// CONSIGLIATO</span>
+      <p class="plan-label">Elite</p>
+      <p class="plan-name">Elite + Coaching</p>
+      <p class="plan-tagline">Il programma completo. Piu 20 ore in cui Alessandro ti porta fino all'esame.</p>
+
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;align-items:baseline;gap:4px;">
+          <span style="font-size:20px;font-weight:400;color:rgba(5,8,15,0.5);">&#8364;</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:68px;font-weight:900;line-height:1;color:#05080f;">1.497</span>
+          <span style="font-size:17px;text-decoration:line-through;margin-left:6px;color:rgba(5,8,15,0.3);">&#8364;1.697</span>
+        </div>
+        <p style="font-size:12px;color:rgba(5,8,15,0.45);margin-top:2px;">pagamento unico &middot; accesso a vita</p>
+        <div style="margin-top:12px;background:rgba(5,8,15,0.12);border-radius:6px;padding:10px 14px;">
+          <p style="font-size:12px;color:rgba(5,8,15,0.7);line-height:1.5;">
+            <strong style="color:#05080f;">Valore reale: &#8364;1.697</strong><br>
+            Corso &#8364;1.197 + Coaching 20h &#215; &#8364;75 = &#8364;1.500
+          </p>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(5,8,15,0.15);margin:18px 0;"></div>
+      <ul class="plan-features" style="list-style:none;">
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:8px 0;line-height:1.5;color:#05080f;border-bottom:1px solid rgba(5,8,15,0.08);"><span style="font-family:'JetBrains Mono',monospace;">+</span>Tutto del piano Standard</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:8px 0;line-height:1.5;color:#05080f;border-bottom:1px solid rgba(5,8,15,0.08);"><span style="font-family:'JetBrains Mono',monospace;">&#9733;</span><strong>20 ore di coaching 1:1 con Alessandro</strong>, sessioni personalizzate fino all'esame</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:8px 0;line-height:1.5;color:#05080f;border-bottom:1px solid rgba(5,8,15,0.08);"><span style="font-family:'JetBrains Mono',monospace;">&#9733;</span>Simulazione orale esame con feedback reale</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:8px 0;line-height:1.5;color:#05080f;border-bottom:1px solid rgba(5,8,15,0.08);"><span style="font-family:'JetBrains Mono',monospace;">&#9733;</span>Piano di studio personalizzato sul tuo livello</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:8px 0;line-height:1.5;color:#05080f;border-bottom:1px solid rgba(5,8,15,0.08);"><span style="font-family:'JetBrains Mono',monospace;">&#9733;</span>Supporto diretto su WhatsApp durante la preparazione</li>
+        <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:8px 0;line-height:1.5;color:#05080f;"><span style="font-family:'JetBrains Mono',monospace;">&#9733;</span>Accesso a vita + aggiornamenti</li>
+      </ul>
+      <a href="https://neuroplasticitytraining.it/order?link=SE4ju&pricing_plan=ZjBLYJ71Gm" target="_blank" style="display:block;text-align:center;padding:17px;border-radius:6px;font-size:16px;font-weight:500;margin-top:28px;background:#05080f;color:var(--orange);text-decoration:none;transition:transform 0.2s,opacity 0.2s;">Acquista ora &#8599;</a>
+    </div>
+
+  </div>
+
+  <!-- Nota valore coaching -->
+  <div class="reveal" style="margin-top:32px;max-width:860px;padding:18px 24px;background:rgba(232,102,10,0.05);border:1px solid rgba(232,102,10,0.2);border-radius:8px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);letter-spacing:0.1em;text-transform:uppercase;flex-shrink:0;">// perche vale ogni euro</span>
+    <p style="font-size:14px;color:var(--steel);line-height:1.6;margin:0;">Un ufficiale di macchina guadagna mediamente 3.500-5.000&#8364; al mese. Il corso Elite si ripaga al primo stipendio dal grado superiore.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Pronto a<br>prendere il patentino?</h2>
+  <p>Basta rimandare. Il corso è disponibile subito, accesso immediato al materiale, studia a bordo o a terra dal tuo telefono.</p>
+  <a href="https://neuroplasticitytraining.it/order?link=SE4ju&pricing_plan=ZjBLYJ71Gm" target="_blank" class="big-cta">Accedi al corso &#8599;</a>
+</section>
+
+<footer>
+  <p>ENGINE.STCW, preparazione esame ufficiale di macchina</p>
+  <p>&#169; 2026, STCW III/1 &amp; III/2</p>
+</footer>
+
+<script>// PARTICLES
+(function(){
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  const COLORS = ['rgba(232,102,10,','rgba(143,163,192,','rgba(13,27,62,'];
+  for(let i=0;i<60;i++) particles.push({x:Math.random()*1400,y:Math.random()*900,r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2,alpha:Math.random()*0.4+0.08,color:COLORS[Math.floor(Math.random()*COLORS.length)]});
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.color+p.alpha+')'; ctx.fill();
+    });
+    for(let i=0;i<particles.length;i++) for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<120){ ctx.beginPath(); ctx.strokeStyle='rgba(232,102,10,'+(0.05*(1-d/120))+')'; ctx.lineWidth=0.5; ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.stroke(); }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// SCROLL REVEAL
+(function(){
+  document.body.classList.add('js-ready');
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible);obs.unobserve(e.target);} }); },{threshold:0, rootMargin:'0px 0px -40px 0px'});
+  els.forEach(el=>obs.observe(el));
+})();
+
+// STAGGER
+document.querySelectorAll('.problema-grid,.moduli-grid,.esame-grid,.stcw-grid,.domande-grid,.vocab-grid,.pricing-grid').forEach(g=>{
+  g.querySelectorAll('.reveal').forEach((c,i)=>{ c.style.transitionDelay=(i*0.07)+'s'; });
+
+  // Force visible elements
+  setTimeout(()=>{ document.querySelectorAll('.reveal').forEach(el=>{ const r=el.getBoundingClientRect(); if(r.top < window.innerHeight) el.classList.add('visible); }); }, 100);
+});
+
+
+// ── QUIZ ────────────────────────────────────────────────────────────────────
+var QZ = {
+  cur: 0, score: 0, done: false, cats: {},
+  qs: [
+    {c:'Motore Diesel',
+     q:'Cause principali di fumo nero al fumaiolo?',
+     o:['Temperatura acqua raffreddamento troppo bassa','Eccesso di aria','Aria insufficiente, iniettori usurati o anticipo errato','Pressione TC troppo alta'],
+     k:2, e:'Fumo nero = combustione incompleta. Cause: aria insufficiente, iniettori usurati, anticipo iniezione errato.'},
+    {c:'Impianto Elettrico',
+     q:'Condizione NON necessaria per il parallelo di due generatori?',
+     o:['Stessa tensione','Stessa frequenza','Stessa fase','Stessa potenza nominale'],
+     k:3, e:'Per il parallelo servono tensione, frequenza e fase uguali. La potenza nominale puo essere diversa.'},
+    {c:'Inglese Tecnico',
+     q:"Cosa significa 'crankshaft deflection readings exceed permissible limits'?",
+     o:['Velocita albero supera il limite','Flessione albero supera i limiti ammessi','Pressione olio alta','TC supera i giri'],
+     k:1, e:"Flessione albero misurata con comparatore. Sopra i limiti = cedimento supporti di banco. Ispezione immediata."},
+    {c:'MARPOL',
+     q:'Limite MARPOL Annex I per scarico sentina in mare?',
+     o:['50 ppm','100 ppm','15 ppm','5 ppm'],
+     k:2, e:'Limite 15 ppm. OWS con oil content meter e blocco automatico al superamento soglia.'},
+    {c:'Manutenzione',
+     q:"Cosa misura il comparatore nella flessione dell'albero?",
+     o:['Gioco assiale','Variazione distanza tra manovelloni adiacenti','Usura cuscinetti','Temperatura albero'],
+     k:1, e:'Misura la variazione di distanza tra manovelloni adiacenti. Indica stato supporti di banco. A motore fermo.'},
+    {c:'Turbocompressore',
+     q:'Cause piu comuni di bassa velocita TC?',
+     o:['Temperatura acqua alta','Pale sporche, perdite gas o cuscinetti usurati','Pressione olio alta','Temperatura olio bassa'],
+     k:1, e:'TC rallenta per: pale sporche, perdite gas di scarico, cuscinetti usurati o lubrificazione insufficiente.'},
+    {c:'STCW',
+     q:'Minimo ore di riposo nelle 24h per ufficiale di guardia?',
+     o:['6 ore','8 ore','10 ore','12 ore'],
+     k:2, e:'STCW e MLC 2006: minimo 10 ore ogni 24h, non piu di 2 periodi (uno minimo 6 ore).'},
+    {c:'Sicurezze',
+     q:'Dispositivo che NON puo essere bypassato?',
+     o:['Allarme alta temp. acqua','Allarme bassa pressione olio','Overspeed trip','Allarme alta temp. scarico'],
+     k:2, e:"L'overspeed trip non si bypassa mai. Protegge da distruzione meccanica catastrofica."}
+  ]
+};
+
+function QDraw() {
+  var q   = QZ.qs[QZ.cur];
+  var sEl = document.getElementById('QS');
+  var bEl = document.getElementById('QB');
+  var cEl = document.getElementById('QT');
+  var qEl = document.getElementById('QQ');
+  var fEl = document.getElementById('QF');
+  var nEl = document.getElementById('QN');
+  if (!sEl) return;
+  sEl.textContent      = String(QZ.cur + 1).padStart(2,'0') + '/08';
+  bEl.style.width      = ((QZ.cur + 1) / 8 * 100) + '%';
+  cEl.textContent      = q.c;
+  qEl.textContent      = q.q;
+  fEl.style.display    = 'none';
+  nEl.style.display    = 'none';
+  nEl.style.opacity    = '1';
+  QZ.done              = false;
+
+  var opts = document.getElementById('QO');
+  opts.innerHTML = '';
+  for (var i = 0; i < q.o.length; i++) {
+    var b = document.createElement('button');
+    b.textContent = q.o[i];
+    b.setAttribute('data-qi', String(i));
+    b.style.cssText = 'width:100%;text-align:left;background:rgba(143,163,192,0.05);border:1px solid rgba(143,163,192,0.15);color:#b8cde0;padding:13px 16px;border-radius:6px;font-size:14px;cursor:pointer;display:block;margin-bottom:6px;font-family:Barlow,sans-serif;line-height:1.4;transition:background .15s,border-color .15s;box-sizing:border-box;';
+    b.onmouseover = function () { if (!QZ.done) { this.style.background = 'rgba(232,102,10,0.1)'; this.style.borderColor = 'rgba(232,102,10,0.4)'; } };
+    b.onmouseout  = function () { if (!QZ.done) { this.style.background = 'rgba(143,163,192,0.05)'; this.style.borderColor = 'rgba(143,163,192,0.15)'; } };
+    b.addEventListener('click', (function(idx){ return function(){ QAns(idx); }; })(i));
+    opts.appendChild(b);
+  }
+}
+
+function QAns(i) {
+  if (QZ.done) return;
+  QZ.done = true;
+  var q    = QZ.qs[QZ.cur];
+  var cat  = q.c;
+  if (!QZ.cats[cat]) QZ.cats[cat] = { ok: 0, n: 0 };
+  QZ.cats[cat].n++;
+
+  var all  = document.getElementById('QO').querySelectorAll('button');
+  for (var j = 0; j < all.length; j++) { all[j].style.cursor = 'default'; }
+
+  var btn = all[i];
+  var fb  = document.getElementById('QF');
+
+  if (i === q.k) {
+    QZ.score++;
+    QZ.cats[cat].ok++;
+    btn.style.background  = 'rgba(127,201,176,0.15)';
+    btn.style.borderColor = 'rgba(127,201,176,0.6)';
+    btn.style.color       = '#7fc9b0';
+    fb.style.cssText = 'display:block;margin-top:14px;padding:14px 18px;border-radius:6px;background:rgba(127,201,176,0.07);border:1px solid rgba(127,201,176,0.25);color:#7fc9b0;font-size:14px;line-height:1.65;';
+    fb.innerHTML = '<strong>&#10003; Corretto.</strong> ' + q.e;
+  } else {
+    btn.style.background  = 'rgba(232,102,10,0.12)';
+    btn.style.borderColor = 'rgba(232,102,10,0.5)';
+    btn.style.color       = '#e8660a';
+    all[q.k].style.background  = 'rgba(127,201,176,0.1)';
+    all[q.k].style.borderColor = 'rgba(127,201,176,0.4)';
+    all[q.k].style.color       = '#7fc9b0';
+    fb.style.cssText = 'display:block;margin-top:14px;padding:14px 18px;border-radius:6px;background:rgba(232,102,10,0.06);border:1px solid rgba(232,102,10,0.25);color:#8fa3c0;font-size:14px;line-height:1.65;';
+    fb.innerHTML = '<strong>&#10007; Risposta errata.</strong> ' + q.e;
+  }
+
+  var nEl = document.getElementById('QN');
+  nEl.querySelector('button').textContent = (QZ.cur < 7) ? 'Prossima \u2192' : 'Vedi risultato \u2192';
+  nEl.style.display = 'block';
+}
+
+function QNext() {
+  QZ.cur++;
+  if (QZ.cur < 8) { QDraw(); } else { QFine(); }
+}
+
+function QFine() {
+  document.getElementById('QC').style.display = 'none';
+  var qr = document.getElementById('QR');
+  qr.style.display = 'block';
+  var eg = document.getElementById('QR-email');
+  var rc = document.getElementById('QR-content');
+  if (eg) eg.style.display = 'block';
+  if (rc) rc.style.display = 'none';
+}
+
+function QShowContent() {
+  var s   = QZ.score;
+  var lbl = ['Basi da rivedere','Lacune importanti','Base discreta','Buona preparazione','Molto bene','Ottimo','Quasi pronto','Preparazione avanzata','Pronto'];
+  var msg = [
+    'Riparti dalle basi con metodo. Ogni lacuna coperta, ogni argomento chiaro.',
+    'Consolida le aree deboli prima che sia la commissione a trovarle.',
+    'Con il programma completo nessun argomento resta scoperto.',
+    "L'inglese tecnico e la simulazione orale con Alessandro fanno la differenza.",
+    'Chiudi le ultime lacune e presentati senza incertezze.',
+    'Con Alessandro simuli l\'orale e arrivi alla commissione senza sorprese.',
+    '20 ore con chi conosce ogni angolo dell\'esame. Niente piu da lasciare al caso.',
+    'Presentati e supera.',
+    'Simulazione finale, feedback reale. Poi vai e prendi il patentino.'
+  ];
+  document.getElementById('RSCORE').textContent = s + '/8';
+  document.getElementById('RLABEL').textContent = lbl[Math.min(s, 8)];
+  document.getElementById('RMSG').textContent   = msg[Math.min(s, 8)];
+  var bd   = document.getElementById('RBD');
+  var keys = Object.keys(QZ.cats);
+  var h    = '<p style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">// dettaglio aree</p>';
+  for (var i = 0; i < keys.length; i++) {
+    var d  = QZ.cats[keys[i]];
+    var ok = d.ok === d.n;
+    h += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(143,163,192,0.08);">'
+      +  '<span style="color:' + (ok ? '#7fc9b0' : '#e8660a') + ';">' + (ok ? '&#10003;' : '&#10007;') + '</span>'
+      +  '<span style="font-size:13px;color:' + (ok ? '#7fc9b0' : '#8fa3c0') + ';">' + keys[i] + '</span></div>';
+  }
+  bd.innerHTML = h;
+}
+
+function ml_webform_success_41983325() {
+  var eg = document.getElementById('QR-email');
+  var rc = document.getElementById('QR-content');
+  if (eg) eg.style.display = 'none';
+  if (rc) { rc.style.display = 'block'; QShowContent(); }
+}
+
+// ── ENGINE DIAGRAM ────────────────────────────────────────────────────────────
+function EngInit() {
+  var parts = document.querySelectorAll('.eng-part');
+  if (!parts.length) { setTimeout(EngInit, 300); return; }
+  var tips = {
+    'Canna Cilindro (Cylinder Liner)': 'Cause di usura della canna cilindro e metodi di misura con il micrometro.',
+    'Pistone e Segmenti':              'Gioco ammesso tra segmento e canna. Come si misura e quando si sostituisce?',
+    'Albero Motore (Crankshaft)':      "Limiti di flessione albero e misura con il comparatore.",
+    'Iniettore (Fuel Injector)':       "Come si verifica l'efficienza di un iniettore? Effetti usura plunger.",
+    'Turbocompressore (Turbocharger)': 'Cause di bassa velocita TC e interventi correttivi.',
+    'Pompa Olio Lubrificante (LO Pump)': 'Valori normali pressione olio. Conseguenze del calo. Shut-down?',
+    'Pompa Combustibile e Purificatore': 'Effetti usura plunger. Parametri operativi del purificatore.',
+    'Impianto Raffreddamento (Cooling Water)': 'Temperature normali acqua camicie. Funzionamento scambiatore di calore.'
+  };
+  for (var i = 0; i < parts.length; i++) {
+    (function (p) {
+      p.setAttribute('pointer-events', 'all');
+      p.style.cursor = 'pointer';
+      p.addEventListener('mouseover', function () {
+        if (this.getAttribute('data-sel') !== '1') { this.style.filter = 'drop-shadow(0 0 8px rgba(255,160,40,0.7))'; this.style.opacity = '0.85'; }
+      });
+      p.addEventListener('mouseout', function () {
+        if (this.getAttribute('data-sel') !== '1') { this.style.filter = ''; this.style.opacity = '1'; }
+      });
+      p.addEventListener('click', function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        var all = document.querySelectorAll('.eng-part');
+        for (var j = 0; j < all.length; j++) { all[j].removeAttribute('data-sel'); all[j].style.filter = ''; all[j].style.opacity = '1'; }
+        this.setAttribute('data-sel', '1');
+        this.style.filter = 'drop-shadow(0 0 14px rgba(255,210,60,1))';
+        var lbl = this.getAttribute('data-label');
+        var nm  = document.getElementById('eng-component-name');
+        var dc  = document.getElementById('eng-component-desc');
+        var tb  = document.getElementById('eng-exam-tip');
+        var tq  = document.getElementById('eng-exam-q');
+        if (nm) nm.textContent = '// ' + lbl;
+        if (dc) dc.textContent = this.getAttribute('data-desc');
+        if (tb && tq) { if (tips[lbl]) { tb.style.display = 'block'; tq.textContent = tips[lbl]; } else tb.style.display = 'none'; }
+      });
+    })(parts[i]);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  QDraw();
+  EngInit();
+});
+
+</script>
+</body>
+</html>
